@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/imgMenuCart"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/salmonsusi"
+        android:layout_marginBottom="20dp" />
+    <TextView
+        android:id="@+id/tvNamaImgCart"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/imgMenuCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Sate Ayam"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/txt_cart_harga"
+        android:layout_toRightOf="@+id/imgMenuCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNamaImgCart"
+        android:text="Rp.20.000"/>
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:contentDescription="hapus"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:padding="20dp"
+        android:src="@drawable/baseline_delete_24"
+        android:layout_alignParentEnd="true"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/btn_minCart"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Kurangin"
+
+            android:src="@drawable/iconmonstr_minus_circle_thin"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/quantityTextView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnPlusCart"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Tambah"
+            android:src="@drawable/iconmonstr_plus_circle_thin"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_catatan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgMenuCart"
+            android:layout_marginLeft="130dp"
+            android:text="Catatan : "
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:background="@drawable/bg_note"
+            android:id="@+id/tv_catatan"
+            android:padding="5dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/txt_catatan"
+            android:textSize="14sp"
+            android:layout_below="@+id/imgMenuCart"
+            android:text="" />
+</RelativeLayout>
+
+    </androidx.cardview.widget.CardView>

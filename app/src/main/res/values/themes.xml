@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- ... Konfigurasi lainnya ... -->
+        <item name="colorPrimary">#008000</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- ... Konfigurasi lainnya ... -->
+    </style>
+
+    <style name="Theme.ChallengeEmpat" parent="Base.Theme.ChallengeEmpat" />
+</resources>
