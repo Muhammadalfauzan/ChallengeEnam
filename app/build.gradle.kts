@@ -3,11 +3,13 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
+
 }
 
 android {
     namespace = "com.example.challengeempat"
-    compileSdk = 34
+    compileSdk = 33
 
 
     buildFeatures {
@@ -18,7 +20,7 @@ android {
     defaultConfig {
         applicationId = "com.example.challengeempat"
         minSdk = 27
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -74,6 +76,14 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
+    //Retrofit
+    implementation("implementation 'com.squareup.retrofit2:retrofit:2.9.0'")
+
+    implementation("implementation 'com.squareup.retrofit2:converter-gson:latest.version")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
 
 
 }
