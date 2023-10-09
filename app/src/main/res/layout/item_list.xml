@@ -43,14 +43,6 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvRpList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvNamaImg"
-        android:layout_marginStart="120dp"
-        android:paddingTop="10dp"
-        android:text="Rp." />
         <TextView
             android:id="@+id/tvHarga"
             android:layout_width="wrap_content"

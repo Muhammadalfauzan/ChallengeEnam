@@ -1,8 +1,8 @@
 package com.example.challengeempat
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.challengeempat.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFragment
             )
         )
+        setSupportActionBar(appBarConfiguration)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
@@ -48,6 +50,7 @@ class MainActivity : AppCompatActivity() {
      fun showButtomNav() {
         binding.buttomNav.visibility = View.VISIBLE
     }
+
      fun hideButtomNav (){
         binding.buttomNav.visibility = View.GONE
     }

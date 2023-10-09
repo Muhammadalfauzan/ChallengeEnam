@@ -1,57 +1,94 @@
 package com.example.challengeempat.adapter
 
+
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.challengeempat.dataclass.ListData
-import com.example.challengeempat.R
+import com.bumptech.glide.Glide
+import com.example.challengeempat.databinding.ItemGridBinding
+import com.example.challengeempat.databinding.ItemListBinding
+import com.example.challengeempat.model.MenuItem
 
 
 class AdapterHome(
-    private val dataMenu: ArrayList<ListData>,
+    private var menuList: ArrayList<MenuItem>,
     var isGrid: Boolean = true,
-    private var onItemClick: ((ListData) -> Unit)? = null
-) : RecyclerView.Adapter<AdapterHome.ListViewHolder>() {
+    private val onItemClick: ((MenuItem) -> Unit)? = null
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val layoutView = if (isGrid) R.layout.item_grid else R.layout.item_list
-        val view: View = LayoutInflater.from(parent.context).inflate(layoutView, parent, false)
-        return ListViewHolder(view)
-    }
-
-
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (gambar, namaImg, harga) = dataMenu[position]
-        holder.imgMenuu.setImageResource(gambar)
-        holder.namaMenu.text = namaImg
-        holder.harga.text = harga.toString()
-
-        val currentItem = dataMenu[position]
-        holder.itemView.setOnClickListener {
-            onItemClick?.invoke(currentItem)
-        }
-    }
-    override fun getItemCount(): Int = dataMenu.size
-
-
-    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgMenuu: ImageView = itemView.findViewById(R.id.imgMenu)
-        val namaMenu: TextView = itemView.findViewById(R.id.tvNamaImg)
-        val harga: TextView = itemView.findViewById(R.id.tvHarga)
+    companion object {
+        private const val VIEW_TYPE_GRID = 1
+        private const val VIEW_TYPE_LIST = 2
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: ArrayList<ListData>) {
-        dataMenu.clear()
-        dataMenu.addAll(newData)
+    fun updateData(newData: List<MenuItem>) {
+        menuList.clear()
+        menuList.addAll(newData)
         notifyDataSetChanged()
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return if (viewType == VIEW_TYPE_GRID) {
+            val binding = ItemGridBinding.inflate(layoutInflater, parent, false)
+            GridViewHolder(binding)
+        } else {
+            val binding = ItemListBinding.inflate(layoutInflater, parent, false)
+            ListViewHolder(binding)
+        }
+    }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val currentItem = menuList[position]
+        when (holder) {
+            is GridViewHolder -> {
+                holder.bindGrid(currentItem)
+            }
+            is ListViewHolder -> {
+                holder.bindList(currentItem)
+            }
+        }
+    }
+
+    override fun getItemCount(): Int = menuList.size
+
+    override fun getItemViewType(position: Int): Int {
+        return if (isGrid) VIEW_TYPE_GRID else VIEW_TYPE_LIST
+    }
+
+    inner class GridViewHolder(private val binding: ItemGridBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindGrid(postResponse: MenuItem) {
+            binding.tvNamaImg.text = postResponse.nama
+            binding.tvHarga.text =postResponse.harga_format
+            Glide.with(binding.root.context)
+                .load(postResponse.image_url)
+                .into(binding.imgMenu)
+
+            binding.root.setOnClickListener {
+                onItemClick?.invoke(postResponse)
+            }
+        }
+    }
+    inner class ListViewHolder(private val binding: ItemListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindList(postResponse: MenuItem) {
+            binding.tvNamaImg.text = postResponse.nama
+            binding.tvHarga.text = postResponse.harga_format
+            Glide.with(binding.root.context)
+                .load(postResponse.image_url)
+                .into(binding.imgMenu)
+
+
+            binding.root.setOnClickListener {
+                onItemClick?.invoke(postResponse)
+            }
+        }
+    }
 }
+
+
 
 

@@ -9,7 +9,7 @@ import com.example.challengeempat.database.CartData
 import com.example.challengeempat.databinding.ItemCartBinding
 import com.example.challengeempat.viewmodel.CartViewModel
 
-@Suppress("DEPRECATION")
+
 class CartAdapter(
     private var cartItems: List<CartData>,
     private val viewModel: CartViewModel,
@@ -71,7 +71,7 @@ class CartAdapter(
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val currentItem = cartItems[position]
         holder.bind(currentItem)
-        // Bind data ke ViewHolder
+
     }
 
     override fun getItemCount(): Int {

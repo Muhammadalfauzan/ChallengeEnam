@@ -3,45 +3,39 @@ package com.example.challengeempat
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.challengeempat.databinding.FragmentDetailBinding
-import com.example.challengeempat.dataclass.ListData
+import com.example.challengeempat.model.MenuItem
 import com.example.challengeempat.viewmodel.DetailViewModel
 import com.example.challengeempat.viewmodel.HomeViewModel
 
+@Suppress("DEPRECATION")
 class DetailFragment : Fragment() {
 
-    private var item: ListData? = null
-    private  lateinit var binding : FragmentDetailBinding
-    private lateinit var homeViewModel : HomeViewModel
-    private lateinit var detailViewModel : DetailViewModel
+    private var item: MenuItem? = null
+    private lateinit var binding: FragmentDetailBinding
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var detailViewModel: DetailViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-         binding = FragmentDetailBinding.inflate(inflater, container, false)
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
         setUpDetailViewModel()
 
+        item = arguments?.getParcelable("item")
 
-        // Terima objek Parcelable dari Bundle
-        @Suppress("DEPRECATION")
-        item = arguments?.getParcelable("key")
-
-
-        item?.let { setDataToView( it)
-            detailViewModel.setSelectItem(it)
-        }
-        detailViewModel.vCounter.observe(viewLifecycleOwner){
-                count->
-            binding.tvQuantity.text =count.toString()
+        detailViewModel.vCounter.observe(viewLifecycleOwner) { count ->
+            binding.tvQuantity.text = count.toString()
         }
 
         (activity as MainActivity).hideButtomNav()
@@ -50,60 +44,74 @@ class DetailFragment : Fragment() {
         lessItem()
         addToCart()
         takeNote()
+
+        item?.let { setDataToView(it) }
+
         return binding.root
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         (activity as MainActivity).showButtomNav()
     }
+
     private fun setUpDetailViewModel() {
         val viewModelFactory = ViewModelFactory(requireActivity().application)
         detailViewModel = ViewModelProvider(this, viewModelFactory)[DetailViewModel::class.java]
     }
-    //  function untuk mengatur data ke tampilan DetailFragment
-    private fun setDataToView( item: ListData) {
-        binding.imageView.setImageResource(item.gambar)
-        binding.tvNama.text = item.namaImg
-        binding.tvHargaDetail.text= item.harga.toString()
-        binding.tvLokasi.text = item.lokasi
-        binding.tvDeskripsi.text = item.deskripsi
+
+    private fun setDataToView(item: MenuItem) {
+
+
+        binding.tvNama.text = item.nama
+        binding.tvHargaDetail.text = item.harga_format
+        binding.tvDeskripsi.text = item.detail
+        binding.tvLokasi.text = item.alamat_resto
+        Glide.with(binding.root.context)
+            .load(item.image_url)
+            .into(binding.ivDetailMenu)
 
         binding.tvLokasi.setOnClickListener {
-
-
-            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(item.lokasi)}")
+            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(item.alamat_resto)}")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             startActivity(mapIntent)
         }
+
     }
 
-    private fun additem(){
+    private fun additem() {
         binding.btnPlus.setOnClickListener {
             detailViewModel.incrementCount()
 
         }
     }
-    private fun lessItem(){
+
+    private fun lessItem() {
         binding.btnMin.setOnClickListener {
             detailViewModel.decrementCount()
 
         }
     }
 
-    private fun addToCart(){
+    private fun addToCart() {
         binding.btnAddToCart.setOnClickListener {
             detailViewModel.add()
-            Toast.makeText(requireContext(), "Data telah berhasil ditambahkan ke cart", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Data telah berhasil ditambahkan ke cart",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
+
     private fun takeNote() {
         binding.ivDoneNote.setOnClickListener {
             val note = binding.etNote.text.toString()
             detailViewModel.setOrderNote(note)
 
             binding.etNote.text?.clear()
-            Toast.makeText(requireContext(),"Catatan di tambahkan", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Catatan di tambahkan", Toast.LENGTH_SHORT).show()
         }
     }
 }
