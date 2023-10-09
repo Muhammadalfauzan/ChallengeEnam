@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "196502863254",
+    "project_id": "fir-auth-85a9f",
+    "storage_bucket": "fir-auth-85a9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196502863254:android:b9af22bf6db032ed4531b7",
+        "android_client_info": {
+          "package_name": "com.example.challengeempat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN8LP1y9yY7tLvVBct2b17Dm4ZFxUeFQ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
