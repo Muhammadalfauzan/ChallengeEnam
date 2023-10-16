@@ -19,12 +19,7 @@ interface CartDao {
     @Update
     fun update(cartData: CartData)
 
-    @Query("SELECT * FROM cart ORDER BY ID DESC")
+    @Query( "SELECT * FROM cart ORDER BY ID DESC")
     fun getAllItemCart() : LiveData<List<CartData>>
-
-    @Query("SELECT * FROM cart WHERE id = :itemId")
-    fun getItemById(itemId: Int): LiveData<CartData>
-
-
 
 }

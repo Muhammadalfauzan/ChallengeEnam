@@ -1,4 +1,4 @@
-package com.example.challengeempat
+package com.example.challengeempat.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -11,20 +11,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.challengeempat.R
 import com.example.challengeempat.adapter.AdapterHome
 import com.example.challengeempat.adapter.AdapterKategori
 import com.example.challengeempat.api.Api
 import com.example.challengeempat.databinding.FragmentHomeBinding
 import com.example.challengeempat.model.ApiKategori
 import com.example.challengeempat.model.ApiMenuResponse
-import com.example.challengeempat.model.Data
 import com.example.challengeempat.model.MenuItem
 import com.example.challengeempat.sharedpref.ViewPreference
 import com.example.challengeempat.viewmodel.HomeViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
 
 class HomeFragment : Fragment() {
     private lateinit var viewPreferences: ViewPreference
@@ -50,7 +53,7 @@ class HomeFragment : Fragment() {
             val detailFragment = DetailFragment()
             detailFragment.arguments = bundle
 
-            findNavController().navigate(R.id.action_homeFragment_to_detailFragment2, bundle)
+            findNavController().navigate(R.id.action_homeFragment_to_detailFragment, bundle)
         }
         binding.rvListMenu.adapter = adapterHome
         binding.rvListMenu.setHasFixedSize(true)
@@ -75,12 +78,10 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+
     private fun updateRecyclerView(menuItems: List<MenuItem>) {
         adapterHome.updateData(menuItems)
 
-    }
-    private fun updateRvKategori(katItems : List<Data>){
-        adapterKategori.updateDataKat(katItems)
     }
 
     private fun initUI() {
@@ -137,55 +138,46 @@ class HomeFragment : Fragment() {
 
     private fun fetchAllData() {
         showLoading(true)
-        Api.instance.getAllMenu().enqueue(object : Callback<ApiMenuResponse> {
-            override fun onResponse(
-                call: Call<ApiMenuResponse>,
-                response: Response<ApiMenuResponse>
-            ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response: Response<ApiMenuResponse> = Api.apiService.getAllMenu()
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        val apiMenuResponse = response.body()
+                        if (apiMenuResponse != null) {
+                            val menuItems = apiMenuResponse.data
 
+                            showLoading(false)
+                            adapterHome.updateData(menuItems)
 
-                if (response.isSuccessful) {
-                    val apiMenuResponse = response.body()
-                    if (apiMenuResponse != null) {
-                        val menuItems = apiMenuResponse.data
-
-                        showLoading(false)
-                        adapterHome.updateData(menuItems)
-
-                        Log.d("HomeFragment", "Data loaded successfully: ${menuItems.size} items")
+                            Log.d("HomeFragment", "Data loaded successfully: ${menuItems.size} items")
+                        } else {
+                            Log.e("HomeFragment", "Data body is null")
+                        }
                     } else {
-
-                        Log.e("HomeFragment", "Data body is null")
+                        Log.e("HomeFragment", "API request failed with code: ${response.code()}")
                     }
-                } else {
-                    Log.e("HomeFragment", "API request failed with code: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    showLoading(false)
+                    Log.e("HomeFragment", "API request failed: ${e.message}")
                 }
             }
-
-            override fun onFailure(call: Call<ApiMenuResponse>, t: Throwable) {
-                showLoading(false)
-
-                Log.e("HomeFragment", "API request failed: ${t.message}")
-            }
-        })
+        }
     }
 
     private fun fetchAllKategori() {
-        Api.instance.getKategori().enqueue(object : Callback<ApiKategori> {
+        Api.apiService.getKategori().enqueue(object : Callback<ApiKategori> {
             override fun onResponse(call: Call<ApiKategori>, response: Response<ApiKategori>) {
-
-
                 if (response.isSuccessful) {
                     val apiMenuResponse = response.body()
                     if (apiMenuResponse != null) {
                         val menuKat = apiMenuResponse.dataKat
-
                         showLoading(false)
                         adapterKategori.updateDataKat(menuKat)
-
                         Log.d("HomeFragment", "Data loaded successfully: ${menuKat.size} items")
                     } else {
-
                         Log.e("HomeFragment", "Data body is null")
                     }
                 } else {
@@ -195,11 +187,9 @@ class HomeFragment : Fragment() {
 
             override fun onFailure(call: Call<ApiKategori>, t: Throwable) {
                 showLoading(false)
-
                 Log.e("HomeFragment", "API request failed: ${t.message}")
             }
         })
-
     }
 
 

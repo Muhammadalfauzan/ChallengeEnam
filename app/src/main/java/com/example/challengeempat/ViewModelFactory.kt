@@ -6,22 +6,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.challengeempat.viewmodel.CartViewModel
 import com.example.challengeempat.viewmodel.DetailViewModel
 
-class ViewModelFactory(
-    private val application: Application
-) : ViewModelProvider.Factory {
+@Suppress("UNCHECKED_CAST")
+class ViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return DetailViewModel(application) as T
+        return when {
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(application) as T
+            }
+            modelClass.isAssignableFrom(CartViewModel::class.java) -> {
+                CartViewModel(application) as T
+            }
+            else -> throw IllegalArgumentException("Unknown ViewModel Class: ${modelClass.name}")
         }
-
-         else if (modelClass.isAssignableFrom(CartViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-        return CartViewModel(application) as T
-        }
-
-    throw IllegalArgumentException("Unknown ViewModel Class")
     }
-
 }
-

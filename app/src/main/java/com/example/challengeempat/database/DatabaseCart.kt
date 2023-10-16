@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [CartData::class], version = 1)
+@Database(entities = [CartData::class], version = 2)
 abstract class DatabaseCart : RoomDatabase() {
     abstract fun cartDao(): CartDao
 
@@ -15,19 +15,24 @@ abstract class DatabaseCart : RoomDatabase() {
         private var INSTANCE: DatabaseCart? = null
 
         @JvmStatic
-        fun getDataBase(context: Context): DatabaseCart {
-            if (INSTANCE == null) {
-                synchronized(DatabaseCart::class.java) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        DatabaseCart::class.java, "cart_database"
-                    )
-                        .build()
-                }
+        fun getInstance(context: Context): DatabaseCart {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    DatabaseCart::class.java,
+                    "cart"
+                )
+                    .addMigrations(MIGRATION_1_2)
+                    .build()
+                INSTANCE = instance
+                instance
             }
-            return INSTANCE as DatabaseCart
         }
 
-
+        val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // Tulis logika migrasi di sini
+            }
+        }
     }
 }

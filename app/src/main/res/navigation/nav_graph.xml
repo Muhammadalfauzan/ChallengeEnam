@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.challengeempat.HomeFragment"
-        android:label="fragment_home"
+        android:name="com.example.challengeempat.ui.fragment.HomeFragment"
+        android:label=""
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_detailFragment2"
+            android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.challengeempat.DetailFragment"
+        android:name="com.example.challengeempat.ui.fragment.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
 
@@ -33,21 +33,28 @@
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.challengeempat.CartFragment"
-        android:label="fragment_cart"
+        android:name="com.example.challengeempat.ui.fragment.CartFragment"
+        android:label=""
         tools:layout="@layout/fragment_cart" >
         <action
             android:id="@+id/action_cartFragment_to_konfirmasiFragment"
             app:destination="@id/konfirmasiFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.challengeempat.ProfileFragment"
-        android:label="fragment_profile"
+        android:name="com.example.challengeempat.ui.fragment.ProfileFragment"
+        android:label=""
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/konfirmasiFragment"
-        android:name="com.example.challengeempat.KonfirmasiFragment"
+        android:name="com.example.challengeempat.ui.fragment.KonfirmasiFragment"
         android:label="fragment_konfirmasi"
-        tools:layout="@layout/fragment_konfirmasi" />
+        tools:layout="@layout/fragment_konfirmasi" >
+        <action
+            android:id="@+id/action_konfirmasiFragment_to_cartFragment2"
+            app:destination="@id/cartFragment" />
+    </fragment>
 </navigation>

@@ -4,34 +4,29 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.challengeempat.database.CartDao
+import com.example.challengeempat.CartRepository
 import com.example.challengeempat.database.CartData
-import com.example.challengeempat.database.DatabaseCart
-
-import com.example.challengeempat.dataclass.ListData
+import com.example.challengeempat.model.MenuItem
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class DetailViewModel(application: Application): ViewModel(){
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
-    private val cartDao: CartDao
-
     private val _vCounter: MutableLiveData<Int> = MutableLiveData(1)
-    val vCounter: LiveData<Int> get() = _vCounter
+    val vCounter: LiveData<Int> = _vCounter
 
+    private val cartRepository: CartRepository
     // LiveData untuk total harga
     private val _totalHarga: MutableLiveData<Int> = MutableLiveData(0)
-    val totalHarga: LiveData<Int> get() = _totalHarga
+    val totalHarga: LiveData<Int>  = _totalHarga
 
     private val _orderNote = MutableLiveData<String?>()
     private val orderNote: LiveData<String?> = _orderNote
 
+    private val _selectItem = MutableLiveData<MenuItem>()
 
-    private val _selectItem = MutableLiveData<ListData>()
-    /*val selectItem: LiveData<ListData> = _selectItem*/
     init {
-        val db = DatabaseCart.getDataBase(application)
-        cartDao = db.cartDao()
+        cartRepository = CartRepository(application)
     }
 
     fun incrementCount() {
@@ -53,9 +48,9 @@ class DetailViewModel(application: Application): ViewModel(){
         }
     }
 
-    fun setSelectItem(item: ListData) {
+    fun setSelectItem(item: MenuItem) {
         _selectItem.value = item
-        (_vCounter.value ?: 1)
+        _totalHarga.value = item.harga
     }
 
     fun setOrderNote(note: String?) {
@@ -65,28 +60,32 @@ class DetailViewModel(application: Application): ViewModel(){
         return orderNote.value
     }
 
-    fun add() {
+    fun addToCart() {
         val selectItem = _selectItem.value
-        selectItem?.let { item ->
-            val itemHarga  = item.harga ?: 0
-            val quantity = _vCounter.value ?: 1
-            val totalHarga = itemHarga/* * quantity*/
 
-            val itemCart = CartData(
-                imageFood = item.gambar,
-                nameFood = item.namaImg,
-                hargaPerItem = totalHarga,
-                quantity = quantity,
-                note = getOrderNote()
-            )
+        selectItem?.let {
+            val cartItem =
+                totalHarga.value?.let { totalHargaValue ->
+                vCounter.value?.let { vCounterValue ->
+                    CartData(
+                        image_url = it.image_url,
+                        nameFood = it.nama,
+                        hargaPerItem = totalHargaValue,
+                        quantity = vCounterValue ,
+                        note = getOrderNote(),
+                        totalHarga = it.harga
+                    )
+                }
+            }
 
-            insertCart(itemCart)
+            cartItem?.let { totalHarga -> insertCart(totalHarga) }
         }
     }
+
+
     private fun insertCart(itemCart: CartData) {
-        executorService.execute {
-            cartDao.insert(itemCart)
+            cartRepository.insertData(itemCart)
         }
-    }
+
 }
 

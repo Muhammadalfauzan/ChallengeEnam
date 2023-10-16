@@ -1,11 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="heme.ChallengeEmpat" parent="Theme.AppCompat.DayNight">
+    <style name="Theme.ChallengeEmpat" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- ... Konfigurasi lainnya ... -->
         <item name="colorPrimary">#008000</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!-- ... Konfigurasi lainnya ... -->
     </style>
-
-    <style name="Theme.ChallengeEmpat" parent="Base.Theme.ChallengeEmpat" />
 </resources>

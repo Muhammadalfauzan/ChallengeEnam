@@ -1,20 +1,18 @@
-package com.example.challengeempat
+package com.example.challengeempat.ui.activity
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.challengeempat.R
 import com.example.challengeempat.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -23,35 +21,21 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        setupActionBarWithNavController(navController)
-
 
         val bottomNavView = binding.buttomNav
         NavigationUI.setupWithNavController(bottomNavView, navController)
-
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeFragment,
-                R.id.cartFragment,
-                R.id.profileFragment
-            )
-        )
-        setSupportActionBar(appBarConfiguration)
-        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-
         val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-
+        return navController.navigateUp()
     }
 
-     fun showButtomNav() {
+    fun showButtomNav() {
         binding.buttomNav.visibility = View.VISIBLE
     }
 
-     fun hideButtomNav (){
+    fun hideButtomNav() {
         binding.buttomNav.visibility = View.GONE
     }
 }

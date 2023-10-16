@@ -5,18 +5,55 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
-    tools:context=".DetailFragment">
+    tools:context=".ui.fragment.DetailFragment">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white">
+
+                <ImageButton
+                    android:id="@+id/backButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:contentDescription="back"
+                    android:src="@drawable/ic_back_ios_24"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <!-- Add a TextView for the title -->
+                <TextView
+                    android:id="@+id/checkoutTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Cart"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
 
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="360dp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,16 +61,18 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="330dp">
+                android:layout_height="match_parent">
 
 
                 <ImageView
                     android:id="@+id/ivDetailMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:layout_margin="10dp"
-                    app:layout_constraintEnd_toStartOf="@+id/tvDeskripsi"
-                    app:layout_constraintStart_toEndOf="@+id/tvDeskripsi"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -88,7 +127,7 @@
             <RelativeLayout
                 android:id="@+id/relative_lokasi"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="130dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -143,66 +182,59 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView4"
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
+            <ImageView
+                android:id="@+id/btn_min"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:contentDescription="delete"
+                android:padding="2dp"
 
-            <LinearLayout
-                android:id="@+id/linearLayout7"
-                android:layout_width="wrap_content"
+                app:srcCompat="@drawable/iconmonstr_minus_circle_thin"
+                app:tint="@color/red900" />
+
+
+            <TextView
+                android:id="@+id/tv_Quantity"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteY="461dp">
+                android:maxLines="1"
+                android:padding="5dp"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/btn_min"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="delete"
-                    android:padding="2dp"
+            <ImageView
+                android:id="@+id/btn_plus"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:contentDescription="add"
+                android:padding="2dp"
+                app:srcCompat="@drawable/iconmonstr_plus_circle_thin"
+                app:tint="@color/green800" />
+        </LinearLayout>
 
-                    app:srcCompat="@drawable/iconmonstr_minus_circle_thin"
-                    app:tint="@color/red900" />
 
-
-                <TextView
-                    android:id="@+id/tv_Quantity"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:autoSizeMaxTextSize="20sp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:padding="5dp"
-                    android:text="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/primary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/btn_plus"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:contentDescription="add"
-                    android:padding="2dp"
-                    app:srcCompat="@drawable/iconmonstr_plus_circle_thin"
-                    app:tint="@color/green800" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
 
 
         <androidx.appcompat.widget.AppCompatButton
@@ -238,15 +270,13 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="53dp"
             android:paddingTop="5dp"
             android:text="Catatan :"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
 
         <EditText
             android:id="@+id/et_note"
