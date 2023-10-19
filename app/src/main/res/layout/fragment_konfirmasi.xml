@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Keranjang"
+                    android:text="Order"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -62,17 +62,19 @@
         <LinearLayout
             android:id="@+id/linearLayout5"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_1">
 
-            <TextView
-                android:id="@+id/button1"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_takeAway"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
@@ -80,21 +82,23 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textAlignment="center"
-                android:background="@drawable/rounded_bg1"
+                app:cornerRadius="5dp"
+                android:backgroundTint="@color/gray400"
                 android:paddingTop="10dp"
-                android:text="Ambil Sendiri" />
+                android:text="Take Away" />
 
-            <TextView
-                android:textAlignment="center"
-                android:paddingTop="10dp"
-                android:id="@+id/button2"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delivery"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textStyle="bold"
+                android:backgroundTint="@color/gray400"
+                android:paddingTop="10dp"
+                android:text="Delivery"
+                android:textAlignment="center"
                 android:textColor="@color/black"
-                android:background="@drawable/rounded_bg1"
-                android:text="Dikirim" />
+                android:textStyle="bold"
+                app:cornerRadius="5dp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -112,7 +116,6 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="20dp"
             android:text="Metode Pembayaran"
             android:textSize="16sp"
@@ -134,22 +137,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_tunai"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_bg1"
+                android:backgroundTint="@color/gray400"
+                android:textColor="@color/black"
+                app:cornerRadius="5dp"
                 android:text="Tunai" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_digital"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_bg1"
-                android:text="Dompet Digital" />
+                app:cornerRadius="5dp"
+                android:backgroundTint="@color/gray400"
+                android:text="Dompet Digital"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <TextView
@@ -217,7 +224,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_marginBottom="109dp"
-            android:text="Pesan"
+            android:text="Order Now"
             android:background="@drawable/rounded_bg2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

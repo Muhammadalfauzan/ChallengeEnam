@@ -31,7 +31,7 @@ abstract class DatabaseCart : RoomDatabase() {
 
         val MIGRATION_1_2: Migration = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                // Tulis logika migrasi di sini
+
             }
         }
     }

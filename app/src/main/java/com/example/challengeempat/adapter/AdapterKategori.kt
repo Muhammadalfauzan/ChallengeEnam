@@ -10,10 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.challengeempat.R
-import com.example.challengeempat.model.Data
+import com.example.challengeempat.model.DataCategory
 
 
-class AdapterKategori(private var menuList: ArrayList<Data>) :
+class AdapterKategori(private var menuList: ArrayList<DataCategory>) :
     RecyclerView.Adapter<AdapterKategori.KategoriViewHolder>() {
 
     class KategoriViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,7 +43,7 @@ class AdapterKategori(private var menuList: ArrayList<Data>) :
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateDataKat(newData: List<Data>) {
+    fun updateDataKat(newData: List<DataCategory>) {
         menuList.clear()
         menuList.addAll(newData)
         notifyDataSetChanged()

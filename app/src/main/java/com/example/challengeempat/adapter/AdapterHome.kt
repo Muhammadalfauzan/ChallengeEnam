@@ -88,7 +88,3 @@ class AdapterHome(
         }
     }
 }
-
-
-
-

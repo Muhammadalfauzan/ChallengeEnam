@@ -37,8 +37,9 @@ class CartRepository(application: Application) {
     fun insertData(cart: CartData) {
         executorService.execute { cartDao.insert(cart) }
     }
-
-
+    fun deleteAllItems() {
+        executorService.execute { cartDao.deleteALlItems() }
+    }
     fun calculateTotalPrice(): LiveData<Int> {
         return cartDao.getAllItemCart().map { cartItems ->
             var totalPrice = 0

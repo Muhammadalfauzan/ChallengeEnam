@@ -56,7 +56,7 @@ class DetailViewModel(application: Application): ViewModel(){
     fun setOrderNote(note: String?) {
         _orderNote.value = note
     }
-     private fun getOrderNote(): String? {
+    private fun getOrderNote(): String? {
         return orderNote.value
     }
 
@@ -66,17 +66,17 @@ class DetailViewModel(application: Application): ViewModel(){
         selectItem?.let {
             val cartItem =
                 totalHarga.value?.let { totalHargaValue ->
-                vCounter.value?.let { vCounterValue ->
-                    CartData(
-                        image_url = it.image_url,
-                        nameFood = it.nama,
-                        hargaPerItem = totalHargaValue,
-                        quantity = vCounterValue ,
-                        note = getOrderNote(),
-                        totalHarga = it.harga
-                    )
+                    vCounter.value?.let { vCounterValue ->
+                        CartData(
+                            image_url = it.image_url,
+                            nameFood = it.nama,
+                            hargaPerItem = totalHargaValue,
+                            quantity = vCounterValue ,
+                            note = getOrderNote(),
+                            totalHarga = it.harga
+                        )
+                    }
                 }
-            }
 
             cartItem?.let { totalHarga -> insertCart(totalHarga) }
         }
@@ -84,8 +84,7 @@ class DetailViewModel(application: Application): ViewModel(){
 
 
     private fun insertCart(itemCart: CartData) {
-            cartRepository.insertData(itemCart)
-        }
+        cartRepository.insertData(itemCart)
+    }
 
 }
-

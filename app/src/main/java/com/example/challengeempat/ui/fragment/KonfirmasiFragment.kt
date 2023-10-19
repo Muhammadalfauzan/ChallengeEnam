@@ -51,19 +51,18 @@ class KonfirmasiFragment : Fragment() {
             if (it) {
                 val dialogFragment = PaymenDialog()
                 dialogFragment.show(childFragmentManager, "Pesanan berhasil dialaog")
+                cartViewModel.deleteAllItems()
             }
         }
 
-        /* cartViewModel.isLoading.observe(viewLifecycleOwner) {
-             showLoading(it)
-         }*/
         val mainActivity = requireActivity() as MainActivity
         (activity as MainActivity).hideButtomNav()
         mainActivity.supportActionBar?.hide()
 
 
         pesan()
-
+        chooseDelivery()
+        choosePayment()
         return binding.root
     }
 
@@ -74,6 +73,7 @@ class KonfirmasiFragment : Fragment() {
                 .navigate(R.id.action_konfirmasiFragment_to_cartFragment2)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
 
@@ -109,4 +109,72 @@ class KonfirmasiFragment : Fragment() {
             }
         }
     }
+
+
+   private fun chooseDelivery() {
+        binding.btnTakeAway.setOnClickListener {
+            selectDeliveryOption(true)
+        }
+
+        binding.btnDelivery.setOnClickListener {
+            selectDeliveryOption(false)
+        }
+    }
+
+    private fun selectDeliveryOption(isTakeAway: Boolean) {
+        if (isTakeAway) {
+            binding.btnTakeAway.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+            binding.btnTakeAway.setTextColor(resources.getColor(R.color.white))
+
+            binding.btnDelivery.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+            binding.btnDelivery.setTextColor(resources.getColor(R.color.black))
+
+            binding.btnDelivery.setBackgroundColor(resources.getColor(R.color.gray400))
+            binding.btnDelivery.setTextColor(resources.getColor(R.color.black))
+        } else {
+            binding.btnDelivery.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+            binding.btnDelivery.setTextColor(resources.getColor(R.color.white))
+
+            binding.btnTakeAway.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+            binding.btnTakeAway.setTextColor(resources.getColor(R.color.black))
+
+            binding.btnTakeAway.setBackgroundColor(resources.getColor(R.color.gray400))
+            binding.btnTakeAway.setTextColor(resources.getColor(R.color.black))
+        }
+    }
+
+    private fun choosePayment() {
+        binding.buttonTunai.setOnClickListener {
+            selectPaymentOption(true)
+        }
+
+        binding.buttonDigital.setOnClickListener {
+            selectPaymentOption(false)
+        }
+    }
+
+
+        private fun selectPaymentOption(isTunai: Boolean) {
+            if (isTunai) {
+                binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+                binding.buttonTunai.setTextColor(resources.getColor(R.color.white))
+
+                binding.buttonDigital.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+                binding.buttonDigital.setTextColor(resources.getColor(R.color.black))
+
+
+                binding.buttonDigital.setBackgroundColor(resources.getColor(R.color.gray400))
+                binding.buttonDigital.setTextColor(resources.getColor(R.color.black))
+            } else {
+                binding.buttonDigital.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+                binding.buttonDigital.setTextColor(resources.getColor(R.color.white))
+
+                binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+                binding.buttonTunai.setTextColor(resources.getColor(R.color.black))
+
+
+                binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.gray400))
+                binding.buttonTunai.setTextColor(resources.getColor(R.color.black))
+            }
+        }
 }

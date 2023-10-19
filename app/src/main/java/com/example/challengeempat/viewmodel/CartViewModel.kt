@@ -38,7 +38,11 @@ class CartViewModel(application: Application) : ViewModel() {
         repository.deleteCartItem(cartItem)
 
     }
-     fun placeOrder(orderRequest: ApiOrderRequest) {
+
+    fun deleteAllItems() {
+        repository.deleteAllItems()
+    }
+    fun placeOrder(orderRequest: ApiOrderRequest) {
         val apiService = Api.apiService
 
         val call = apiService.order(orderRequest)
@@ -65,4 +69,3 @@ class CartViewModel(application: Application) : ViewModel() {
     }
 
 }
-

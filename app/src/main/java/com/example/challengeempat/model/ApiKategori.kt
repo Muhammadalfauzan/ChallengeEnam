@@ -7,7 +7,7 @@ data class ApiKategori(
     @SerializedName("code")
     val codeKat: Int,
     @SerializedName("data")
-    val dataKat: List<Data>,
+    val dataKat: List<DataCategory>,
     @SerializedName("message")
     val messageKat: String?,
     @SerializedName("status")

@@ -22,11 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/buttom_nav"
-        android:background="@color/green800"
+
         app:menu="@menu/menu_navigation"
         app:labelVisibilityMode="unlabeled"
-        app:itemTextColor="@color/white"
-        app:itemIconTint="@color/white">
+
+        app:itemIconTint="@drawable/buttom_nav">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

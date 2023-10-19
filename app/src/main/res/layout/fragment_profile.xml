@@ -40,13 +40,14 @@
             app:cardCornerRadius="20dp">
 
             <ImageView
-                android:id="@+id/img_profile"
+                android:id="@+id/profileFragment"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/salmonsusi" />
+                android:background="@color/black"
+                android:src="@drawable/account_circle_24" />
 
         </androidx.cardview.widget.CardView>
 
@@ -139,12 +140,12 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/btn_favorite"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_logut"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="40dp"
             android:clickable="true"
             android:drawableStart="@drawable/ic_exit"
