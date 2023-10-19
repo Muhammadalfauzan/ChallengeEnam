@@ -23,7 +23,24 @@ interface CartDao {
     @Query( "SELECT * FROM cart ORDER BY ID DESC")
     fun getAllItemCart() : LiveData<List<CartData>>
 
-    @Query("SELECT * FROM cart WHERE id = :itemId")
-    fun getCartItemById(itemId: Long): LiveData<CartData?>
+
+  @Query("Select * FROM cart WHERE nameFood = :name")
+  fun getCartItemByName(name : String): CartData?
+
+    fun addOrUpdateCartItem(cartData: CartData) {
+        val existingItem = getCartItemByName(cartData.nameFood)
+        if (existingItem != null) {
+            val newQuantity = existingItem.quantity + cartData.quantity
+            existingItem.quantity = newQuantity
+            update(existingItem)
+        } else {
+
+            insert(cartData)
+        }
+    }
 
 }
+
+
+/*  @Query("SELECT * FROM cart WHERE id = :itemId")
+   fun getCartItemById(itemId: Long): LiveData<CartData?>*/

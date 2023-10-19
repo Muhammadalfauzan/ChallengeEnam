@@ -8,15 +8,30 @@ import com.example.challengeempat.database.CartData
 import com.example.challengeempat.databinding.ItemCartBinding
 import com.example.challengeempat.viewmodel.CartViewModel
 
-
+@Suppress("DEPRECATION")
 class CartAdapter(
-
     private val viewModel: CartViewModel
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     private var cartItems: List<CartData> = emptyList()
+
     inner class CartViewHolder(private val binding: ItemCartBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        private val etNote = binding.tvCatatan
+
+        init {
+            // Handle the EditText focus change event
+            etNote.setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) {
+                    val adapterPosition = adapterPosition
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        val newNote = etNote.text.toString()
+                        viewModel.updateNote(cartItems[adapterPosition], newNote)
+                    }
+                }
+            }
+        }
 
         fun bind(cartItem: CartData) {
             Glide.with(binding.imgMenuCart)
@@ -26,7 +41,7 @@ class CartAdapter(
             binding.tvNamaImgCart.text = cartItem.nameFood
             binding.txtCartHarga.text = cartItem.hargaPerItem.toString()
             binding.quantityTextView.text = cartItem.quantity.toString()
-            binding.tvCatatan.text = cartItem.note
+            etNote.setText(cartItem.note)
 
             binding.btnPlusCart.setOnClickListener {
                 val newQuantity = cartItem.quantity + 1

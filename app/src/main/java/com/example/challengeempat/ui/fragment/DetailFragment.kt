@@ -47,7 +47,6 @@ class DetailFragment : Fragment() {
         additem()
         lessItem()
         addToCart()
-        takeNote()
         setDataToView()
         setMaps()
 
@@ -139,13 +138,4 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun takeNote() {
-        binding.ivDoneNote.setOnClickListener {
-            val note = binding.etNote.text.toString()
-            detailViewModel.setOrderNote(note)
-
-            binding.etNote.text?.clear()
-            Toast.makeText(requireContext(), "Catatan di tambahkan", Toast.LENGTH_SHORT).show()
-        }
-    }
 }

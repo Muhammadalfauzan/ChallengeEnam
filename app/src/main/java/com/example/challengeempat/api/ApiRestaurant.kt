@@ -15,8 +15,6 @@ interface ApiRestaurant {
     @GET("listmenu")
     suspend fun getAllMenu(): Response<ApiMenuResponse>
 
-/*    @GET("listmenu")
-    suspend fun getAllMenu(): Response<ApiMenuResponseDua>*/
 
 
    @GET("/category")
@@ -28,3 +26,5 @@ interface ApiRestaurant {
     ): Call<OrderResponse>
 }
 
+/*    @GET("listmenu")
+    suspend fun getAllMenu(): Response<ApiMenuResponseDua>*/

@@ -38,9 +38,16 @@ class CartViewModel(application: Application) : ViewModel() {
         repository.deleteCartItem(cartItem)
 
     }
+    fun addCartToUpdate(cart: CartData) {
+        repository.addCartToUpdate(cart)
+    }
 
     fun deleteAllItems() {
         repository.deleteAllItems()
+    }
+    fun updateNote(cartItem: CartData, newNote: String) {
+        cartItem.note = newNote
+        repository.updateItemNote(cartItem, newNote)
     }
     fun placeOrder(orderRequest: ApiOrderRequest) {
         val apiService = Api.apiService

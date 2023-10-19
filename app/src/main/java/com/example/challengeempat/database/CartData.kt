@@ -15,6 +15,6 @@ data class CartData(
     val hargaPerItem: Int,
     var quantity: Int,
     var totalHarga : Int,
-    val note: String ? =null,
+    var note: String ? =null,
 
     ) : Parcelable

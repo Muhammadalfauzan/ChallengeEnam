@@ -1,9 +1,11 @@
 package com.example.challengeempat.ui.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -11,10 +13,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.challengeempat.R
 import com.example.challengeempat.ViewModelFactory
+
 import com.example.challengeempat.adapter.CartAdapter
+import com.example.challengeempat.database.CartData
 import com.example.challengeempat.databinding.FragmentCartBinding
 import com.example.challengeempat.viewmodel.CartViewModel
-
 
 class CartFragment : Fragment() {
 
@@ -43,7 +46,6 @@ class CartFragment : Fragment() {
                 binding.rvCart.visibility = View.VISIBLE
                 cartAdapter.updateDataCart(it)
             }
-
         }
 
         cartViewModel.totalPrice.observe(viewLifecycleOwner) {
@@ -52,9 +54,9 @@ class CartFragment : Fragment() {
 
         orderItem()
 
-
         return binding.root
     }
+
     private fun setUpCartViewModel() {
         val viewModelFactory = ViewModelFactory(requireActivity().application)
         cartViewModel = ViewModelProvider(this, viewModelFactory)[CartViewModel::class.java]
@@ -68,5 +70,25 @@ class CartFragment : Fragment() {
                 Toast.makeText(requireContext(), "Your cart is empty", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun showNoteDialog(newItem: CartData) {
+        val noteEditText = EditText(requireContext())
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Add Note")
+            .setView(noteEditText)
+            .setPositiveButton("OK") { _, _ ->
+                val note = noteEditText.text.toString()
+                if (note.isNotEmpty()) {
+                    newItem.note = note
+                    // Gunakan metode addCartToUpdate untuk menambahkan item atau memperbarui item yang sudah ada
+                    cartViewModel.addCartToUpdate(newItem)
+                }
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

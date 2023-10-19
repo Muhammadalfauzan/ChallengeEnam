@@ -33,10 +33,21 @@ class CartRepository(application: Application) {
             cartDao.delete(cartItem)
         }
     }
-
-    fun insertData(cart: CartData) {
-        executorService.execute { cartDao.insert(cart) }
+    fun addCartToUpdate(cart: CartData) {
+        executorService.execute {
+            cartDao.addOrUpdateCartItem(cart)
+        }
     }
+
+    fun updateItemNote(item: CartData, newNote: String) {
+        executorService.execute {
+            item.note = newNote
+            cartDao.update(item)
+        }
+    }
+ /*   fun insertData(cart: CartData) {
+        executorService.execute { cartDao.insert(cart) }
+    }*/
     fun deleteAllItems() {
         executorService.execute { cartDao.deleteALlItems() }
     }

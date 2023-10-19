@@ -56,35 +56,32 @@ class DetailViewModel(application: Application): ViewModel(){
     fun setOrderNote(note: String?) {
         _orderNote.value = note
     }
-    private fun getOrderNote(): String? {
+/*    private fun getOrderNote(): String? {
         return orderNote.value
-    }
+    }*/
 
     fun addToCart() {
         val selectItem = _selectItem.value
 
-        selectItem?.let {
-            val cartItem =
-                totalHarga.value?.let { totalHargaValue ->
-                    vCounter.value?.let { vCounterValue ->
-                        CartData(
-                            image_url = it.image_url,
-                            nameFood = it.nama,
-                            hargaPerItem = totalHargaValue,
-                            quantity = vCounterValue ,
-                            note = getOrderNote(),
-                            totalHarga = it.harga
-                        )
-                    }
-                }
+        selectItem?.let { selectedItem ->
+            totalHarga.value?.let { totalHargaValue ->
+                vCounter.value?.let { vCounterValue ->
+                    // Buat objek CartData baru berdasarkan detail item yang dipilih
+                    val newItem = CartData(
+                        image_url = selectedItem.image_url,
+                        nameFood = selectedItem.nama,
+                        hargaPerItem = totalHargaValue,
+                        quantity = vCounterValue,
+                        note = null,
+                        totalHarga = selectedItem.harga
+                    )
 
-            cartItem?.let { totalHarga -> insertCart(totalHarga) }
+                    // Gunakan metode addOrUpdateCartItem untuk menambahkan item atau memperbarui item yang sudah ada
+                    cartRepository.addCartToUpdate(newItem)
+                }
+            }
         }
     }
 
-
-    private fun insertCart(itemCart: CartData) {
-        cartRepository.insertData(itemCart)
-    }
-
 }
+

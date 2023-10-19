@@ -100,7 +100,7 @@
             android:paddingBottom="10dp"
             android:textSize="14sp" />
 
-        <TextView
+        <EditText
             android:background="@drawable/bg_note"
             android:id="@+id/tv_catatan"
             android:padding="5dp"
@@ -109,7 +109,7 @@
             android:layout_toRightOf="@+id/txt_catatan"
             android:textSize="14sp"
             android:layout_below="@+id/imgMenuCart"
-            android:text="" />
+            android:hint="cth : Porsinya banyakin ya" />
 </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
