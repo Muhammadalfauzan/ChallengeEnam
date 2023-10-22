@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/buttom_nav"
         app:defaultNavHost="true"
+
         app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,24 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/buttom_nav"
-
         app:menu="@menu/menu_navigation"
         app:labelVisibilityMode="unlabeled"
 
         app:itemIconTint="@drawable/buttom_nav">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-   <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/buttom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemIconTint="#ffff"
-        app:itemTextColor="#fff"
-        app:menu="@menu/menu">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
--->
 
 </RelativeLayout>

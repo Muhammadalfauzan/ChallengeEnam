@@ -16,9 +16,9 @@ import com.example.challengeempat.adapter.AdapterHome
 import com.example.challengeempat.adapter.AdapterKategori
 import com.example.challengeempat.api.Api
 import com.example.challengeempat.databinding.FragmentHomeBinding
-import com.example.challengeempat.model.ApiKategori
-import com.example.challengeempat.model.ApiMenuResponse
-import com.example.challengeempat.model.MenuItem
+import com.example.challengeempat.modelapi.ApiMenuResponseDua
+import com.example.challengeempat.modelapi.Data
+import com.example.challengeempat.modelapi.ResponseCategory
 import com.example.challengeempat.sharedpref.ViewPreference
 import com.example.challengeempat.viewmodel.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun updateRecyclerView(menuItems: List<MenuItem>) {
+    private fun updateRecyclerView(menuItems: List<Data>) {
         adapterHome.updateData(menuItems)
 
     }
@@ -140,12 +140,12 @@ class HomeFragment : Fragment() {
         showLoading(true)
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response: Response<ApiMenuResponse> = Api.apiService.getAllMenu()
+                val response: Response<ApiMenuResponseDua> = Api.apiService.getAllMenu()
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         val apiMenuResponse = response.body()
                         if (apiMenuResponse != null) {
-                            val menuItems = apiMenuResponse.data
+                            val menuItems = apiMenuResponse.datamenu
 
                             showLoading(false)
                             adapterHome.updateData(menuItems)
@@ -168,12 +168,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchAllKategori() {
-        Api.apiService.getKategori().enqueue(object : Callback<ApiKategori> {
-            override fun onResponse(call: Call<ApiKategori>, response: Response<ApiKategori>) {
+        Api.apiService.getCategory().enqueue(object : Callback<ResponseCategory> {
+            override fun onResponse(call: Call<ResponseCategory>, response: Response<ResponseCategory>) {
                 if (response.isSuccessful) {
                     val apiMenuResponse = response.body()
                     if (apiMenuResponse != null) {
-                        val menuKat = apiMenuResponse.dataKat
+                        val menuKat = apiMenuResponse.data
                         showLoading(false)
                         adapterKategori.updateDataKat(menuKat)
                         Log.d("HomeFragment", "Data loaded successfully: ${menuKat.size} items")
@@ -185,7 +185,7 @@ class HomeFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<ApiKategori>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseCategory>, t: Throwable) {
                 showLoading(false)
                 Log.e("HomeFragment", "API request failed: ${t.message}")
             }

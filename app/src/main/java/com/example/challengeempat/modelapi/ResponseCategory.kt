@@ -3,9 +3,9 @@ package com.example.challengeempat.modelapi
 
 import com.google.gson.annotations.SerializedName
 
-data class ApiMenuResponseDua(
+data class ResponseCategory(
     @SerializedName("data")
-    val datamenu: List<Data>,
+    val `data`: List<DataCategory>,
     @SerializedName("message")
     val message: String,
     @SerializedName("status")

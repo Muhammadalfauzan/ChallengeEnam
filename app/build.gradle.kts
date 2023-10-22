@@ -54,6 +54,7 @@ dependencies {
     implementation ("com.android.support:multidex:1.0.3")
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.4.3")
     implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.9.0")
 
     val nav_version = "2.5.1"
     implementation("androidx.core:core-ktx:1.12.0")

@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.challengeempat.R
 import com.example.challengeempat.ViewModelFactory
 import com.example.challengeempat.databinding.FragmentDetailBinding
-import com.example.challengeempat.model.MenuItem
+import com.example.challengeempat.modelapi.Data
 import com.example.challengeempat.ui.activity.MainActivity
 import com.example.challengeempat.viewmodel.DetailViewModel
 import com.example.challengeempat.viewmodel.HomeViewModel
@@ -22,7 +22,7 @@ import com.example.challengeempat.viewmodel.HomeViewModel
 @Suppress("DEPRECATION")
 class DetailFragment : Fragment() {
 
-    private var item: MenuItem? = null
+    private var item: Data? = null
     private lateinit var binding: FragmentDetailBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var detailViewModel: DetailViewModel
@@ -88,12 +88,12 @@ class DetailFragment : Fragment() {
         item?.let {
 
             binding.tvNama.text = item?.nama
-            binding.tvHargaDetail.text = item?.harga_format
+            binding.tvHargaDetail.text = item?.hargaFormat
             binding.tvDeskripsi.text = item?.detail
-            binding.tvLokasi.text = item?.alamat_resto
+            binding.tvLokasi.text = item?.alamatResto
 
             Glide.with(binding.root.context)
-                .load(it.image_url)
+                .load(it.imageUrl)
                 .into(binding.ivDetailMenu)
 
             detailViewModel.setSelectItem(it)
@@ -103,10 +103,10 @@ class DetailFragment : Fragment() {
 
     private fun setMaps() {
 
-        val item = arguments?.getParcelable<MenuItem>("item")
+        val item = arguments?.getParcelable<Data>("item")
 
         binding.tvLokasi.setOnClickListener {
-            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(item?.alamat_resto)}")
+            val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(item?.alamatResto)}")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             startActivity(mapIntent)

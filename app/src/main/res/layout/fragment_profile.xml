@@ -69,7 +69,7 @@
             android:layout_marginEnd="40dp"
             android:background="@color/cream"
             android:padding="10dp"
-            android:text="FAUZAN"
+            android:text=""
             android:textSize="20sp" />
 
         <TextView
@@ -114,7 +114,7 @@
             android:layout_marginEnd="40dp"
             android:background="@color/cream"
             android:padding="10dp"
-            android:text="fauzan@gmail.com"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -136,7 +136,7 @@
             android:layout_marginEnd="40dp"
             android:background="@color/cream"
             android:padding="10dp"
-            android:text="08******"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -152,8 +152,8 @@
             android:focusable="true"
             android:text="Log Out"
             android:textAllCaps="false"
-            android:textColor="@color/hijau"
-            app:backgroundTint="@null" />
+            android:textColor="@color/white"
+             />
 
 
     </LinearLayout>

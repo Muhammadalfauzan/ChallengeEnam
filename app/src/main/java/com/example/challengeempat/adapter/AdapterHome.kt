@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.challengeempat.databinding.ItemGridBinding
 import com.example.challengeempat.databinding.ItemListBinding
-import com.example.challengeempat.model.MenuItem
+import com.example.challengeempat.modelapi.Data
 
 
 class AdapterHome(
-    private var menuList: ArrayList<MenuItem>,
+    private var menuList: ArrayList<Data>,
     var isGrid: Boolean = true,
-    private val onItemClick: ((MenuItem) -> Unit)? = null
+    private val onItemClick: ((Data) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -23,7 +23,7 @@ class AdapterHome(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: List<MenuItem>) {
+    fun updateData(newData: List<Data>) {
         menuList.clear()
         menuList.addAll(newData)
         notifyDataSetChanged()
@@ -60,11 +60,11 @@ class AdapterHome(
 
     inner class GridViewHolder(private val binding: ItemGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindGrid(postResponse: MenuItem) {
+        fun bindGrid(postResponse: Data) {
             binding.tvNamaImg.text = postResponse.nama
-            binding.tvHarga.text =postResponse.harga_format
+            binding.tvHarga.text =postResponse.hargaFormat
             Glide.with(binding.root.context)
-                .load(postResponse.image_url)
+                .load(postResponse.imageUrl)
                 .into(binding.imgMenu)
 
             binding.root.setOnClickListener {
@@ -74,11 +74,11 @@ class AdapterHome(
     }
     inner class ListViewHolder(private val binding: ItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindList(postResponse: MenuItem) {
+        fun bindList(postResponse: Data) {
             binding.tvNamaImg.text = postResponse.nama
-            binding.tvHarga.text = postResponse.harga_format
+            binding.tvHarga.text = postResponse.hargaFormat
             Glide.with(binding.root.context)
-                .load(postResponse.image_url)
+                .load(postResponse.imageUrl)
                 .into(binding.imgMenu)
 
 

@@ -40,7 +40,3 @@ interface CartDao {
     }
 
 }
-
-
-/*  @Query("SELECT * FROM cart WHERE id = :itemId")
-   fun getCartItemById(itemId: Long): LiveData<CartData?>*/

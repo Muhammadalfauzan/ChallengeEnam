@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.example.challengeempat
 
 import android.annotation.SuppressLint
@@ -11,12 +9,16 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.challengeempat.modeluser.User
 import com.example.challengeempat.ui.activity.MainActivity
+import com.example.challengeempat.viewmodelregister.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
-@Suppress("DEPRECATION")
 class LoginActivity : AppCompatActivity() {
     private lateinit var editEmail: TextInputEditText
     private lateinit var editPassword: TextInputEditText
@@ -27,10 +29,15 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPrefUser: SharedPreffUser
     private lateinit var currentUser: FirebaseUser
 
+    private lateinit var loginViewModel: UserViewModel
+
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        loginViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        loginViewModel.setUserPreferences(SharedPreffUser(this)) // Menginisialisasi SharedPreffUser
 
         editEmail = findViewById(R.id.et_email)
         editPassword = findViewById(R.id.et_password)
@@ -44,18 +51,24 @@ class LoginActivity : AppCompatActivity() {
         sharedPrefUser = SharedPreffUser(this)
 
         if (sharedPrefUser.isLoggedIn()) {
-            startActivity(Intent(this, MainActivity::class.java))
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             finish()
-        }
-        btnLogin.setOnClickListener {
-            if (editEmail.text!!.isNotEmpty() && editPassword.text!!.isNotEmpty()) {
-                prosesLogin()
-            } else {
-                Toast.makeText(this, "Silahkan Isi email dan password terlebih dahulu", LENGTH_SHORT).show()
+        } else {
+            btnLogin.setOnClickListener {
+                if (editEmail.text!!.isNotEmpty() && editPassword.text!!.isNotEmpty()) {
+                    prosesLogin()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Silahkan Isi email dan password terlebih dahulu",
+                        LENGTH_SHORT
+                    ).show()
+                }
             }
-        }
-        btnRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
+            btnRegister.setOnClickListener {
+                startActivity(Intent(this, RegisterActivity::class.java))
+            }
         }
     }
 
@@ -64,28 +77,52 @@ class LoginActivity : AppCompatActivity() {
         val password = editPassword.text.toString()
 
         progress.show()
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener { authResult ->
-                currentUser = authResult.user!!
+        loginViewModel.login(email, password).observe(this, Observer { result ->
+            when {
+                result.isSuccess -> {
+                    val user = result.getOrNull()
+                    if (user != null) {
+                        currentUser = user
 
-                sharedPrefUser.setLoggedIn(true)
+                        // Mengambil data pengguna dari Firestore
+                        val firestore = FirebaseFirestore.getInstance()
+                        val userCollection = firestore.collection("users")
+                        userCollection.document(user.email!!).get()
+                            .addOnSuccessListener { documentSnapshot ->
+                                if (documentSnapshot.exists()) {
+                                    val userData = documentSnapshot.toObject(User::class.java)
+                                    if (userData != null) {
+                                        // Di sini Anda dapat menggunakan data pengguna dari Firestore
+                                        val username = userData.username
+                                        userData.noTelepon
 
-                val user = authResult.user
-                val username = user?.displayName ?: ""
-                val noTelepon = user?.phoneNumber ?: ""
-                val email = user?.email ?: ""
+                                        // Selanjutnya, Anda dapat menggunakannya sesuai kebutuhan.
+                                    }
+                                }
 
-                sharedPrefUser.saveUserData(username, noTelepon.toString(), email)
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                progress.dismiss()
-                finish()
+                                // Navigasi ke layar beranda atau lainnya setelah login berhasil
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                                progress.dismiss()
+                                finish()
+                            }
+                            .addOnFailureListener { _ ->
+                                Toast.makeText(this, "Gagal mengambil data pengguna dari Firestore", LENGTH_SHORT).show()
+                                progress.dismiss()
+                            }
+                    } else {
+                        Toast.makeText(this, "Akun Tidak terdaftar silahkan registrasi dulu", LENGTH_SHORT).show()
+                        progress.dismiss()
+                    }
+                }
+                result.isFailure -> {
+                    val error = result.exceptionOrNull()?.message
+                    Toast.makeText(this, "Login gagal: $error", LENGTH_SHORT).show()
+                    progress.dismiss()
+                }
+                else -> {
+                }
             }
-            .addOnFailureListener { error ->
-                Toast.makeText(this, "Akun Tidak terdaftar silahkan registrasi dulu", LENGTH_SHORT).show()
-                progress.dismiss()
-            }
+        })
     }
-
 }

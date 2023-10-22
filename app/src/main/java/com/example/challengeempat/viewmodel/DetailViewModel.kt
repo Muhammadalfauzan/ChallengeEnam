@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.challengeempat.CartRepository
 import com.example.challengeempat.database.CartData
-import com.example.challengeempat.model.MenuItem
+import com.example.challengeempat.modelapi.Data
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -23,7 +23,7 @@ class DetailViewModel(application: Application): ViewModel(){
     private val _orderNote = MutableLiveData<String?>()
     private val orderNote: LiveData<String?> = _orderNote
 
-    private val _selectItem = MutableLiveData<MenuItem>()
+    private val _selectItem = MutableLiveData<Data>()
 
     init {
         cartRepository = CartRepository(application)
@@ -48,7 +48,7 @@ class DetailViewModel(application: Application): ViewModel(){
         }
     }
 
-    fun setSelectItem(item: MenuItem) {
+    fun setSelectItem(item: Data) {
         _selectItem.value = item
         _totalHarga.value = item.harga
     }
@@ -68,7 +68,7 @@ class DetailViewModel(application: Application): ViewModel(){
                 vCounter.value?.let { vCounterValue ->
                     // Buat objek CartData baru berdasarkan detail item yang dipilih
                     val newItem = CartData(
-                        image_url = selectedItem.image_url,
+                        image_url = selectedItem.imageUrl,
                         nameFood = selectedItem.nama,
                         hargaPerItem = totalHargaValue,
                         quantity = vCounterValue,

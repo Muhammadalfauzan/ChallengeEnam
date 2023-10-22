@@ -1,6 +1,7 @@
 package com.example.challengeempat.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,9 +50,11 @@ class KonfirmasiFragment : Fragment() {
 
         cartViewModel.orderPlaced.observe(viewLifecycleOwner) {
             if (it) {
+                Log.e("HomeFragment", "Data order : $it")
                 val dialogFragment = PaymenDialog()
                 dialogFragment.show(childFragmentManager, "Pesanan berhasil dialaog")
                 cartViewModel.deleteAllItems()
+
             }
         }
 

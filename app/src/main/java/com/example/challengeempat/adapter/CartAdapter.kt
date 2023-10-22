@@ -1,5 +1,6 @@
 package com.example.challengeempat.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -21,17 +22,17 @@ class CartAdapter(
         private val etNote = binding.tvCatatan
 
         init {
-            // Handle the EditText focus change event
             etNote.setOnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
                     val adapterPosition = adapterPosition
-                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                    if (adapterPosition != RecyclerView.NO_POSITION && adapterPosition < cartItems.size) {
                         val newNote = etNote.text.toString()
                         viewModel.updateNote(cartItems[adapterPosition], newNote)
                     }
                 }
             }
         }
+
 
         fun bind(cartItem: CartData) {
             Glide.with(binding.imgMenuCart)
@@ -76,6 +77,7 @@ class CartAdapter(
         return cartItems.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateDataCart(newData: List<CartData>) {
         cartItems = newData
         notifyDataSetChanged()

@@ -10,8 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Api {
 
-    private const val BASE_URL = "https://236c3839-2d73-48b4-9e05-1e7ee3873548.mock.pstmn.io/"
- /*   private const val BASE_URL = "https://testing.jasa-nikah-siri-amanah-profesional.com/"*/
+    /*private const val BASE_URL = "https://236c3839-2d73-48b4-9e05-1e7ee3873548.mock.pstmn.io/"*/
+    private const val BASE_URL = "https://testing.jasa-nikah-siri-amanah-profesional.com/"
 
     val apiService: ApiRestaurant by lazy {
         createApiService()

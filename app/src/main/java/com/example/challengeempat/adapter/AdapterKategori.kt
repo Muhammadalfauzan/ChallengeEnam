@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.challengeempat.R
-import com.example.challengeempat.model.DataCategory
+import com.example.challengeempat.modelapi.DataCategory
 
 
 class AdapterKategori(private var menuList: ArrayList<DataCategory>) :
@@ -33,7 +33,7 @@ class AdapterKategori(private var menuList: ArrayList<DataCategory>) :
         val menuItem = menuList[position]
 
         // Set data ke tampilan dalam item
-        holder.menuName.text = menuItem.namaKat
+        holder.menuName.text = menuItem.nama
         Glide.with(holder.itemView.context).load(menuItem.imageUrl).into(holder.menuImage)
     }
 
