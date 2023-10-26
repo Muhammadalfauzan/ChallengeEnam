@@ -25,7 +25,8 @@ class CartRepository(application: Application) {
 
     fun updateItemQuantity(item: CartData, newQuantity: Int) {
         item.quantity = newQuantity
-        executorService.execute { cartDao.update(item) }
+        executorService.execute {
+            cartDao.update(item) }
     }
 
     fun deleteCartItem(cartItem: CartData) {

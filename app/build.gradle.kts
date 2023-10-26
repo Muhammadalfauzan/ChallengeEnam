@@ -51,7 +51,7 @@ android {
 }
 
 dependencies {
-    implementation ("com.android.support:multidex:1.0.3")
+
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.4.3")
     implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
     implementation("com.google.firebase:firebase-firestore-ktx:24.9.0")
@@ -86,6 +86,9 @@ dependencies {
 
 
     implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
+
+    //Lottie
+    implementation ("com.airbnb.android:lottie:5.0.3")
 
 
 }
