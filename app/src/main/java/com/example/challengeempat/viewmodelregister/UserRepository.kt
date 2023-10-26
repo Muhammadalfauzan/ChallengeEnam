@@ -28,11 +28,30 @@ class UserRepository {
             .addOnSuccessListener {
                 // Penyimpanan ke Firestore berhasil
             }
-            .addOnFailureListener { e ->
+            .addOnFailureListener { _ ->
                 // Penyimpanan ke Firestore gagal, Anda dapat menangani kesalahan di sini
             }
     }
+    fun updateUserDataInFirestore(email: String, user: User) {
+        val userMap = hashMapOf(
+            "username" to user.username,
+            "noTelepon" to user.noTelepon
+        )
 
+// Konversi tipe data userMap ke Map<String, Any>
+        val userMapAny: Map<String, Any> = userMap
+
+        firestore.collection("users")
+            .document(email)
+            .update(userMapAny)
+            .addOnSuccessListener {
+                // Update data pengguna di Firestore berhasil
+            }
+            .addOnFailureListener { _ ->
+                // Update data pengguna di Firestore gagal, Anda dapat menangani kesalahan di sini
+            }
+
+    }
     suspend fun getUserDocument(email: String): User? {
         val userCollection = firestore.collection("users")
         return try {

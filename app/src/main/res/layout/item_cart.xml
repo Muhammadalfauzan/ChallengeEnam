@@ -94,22 +94,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgMenuCart"
-            android:layout_marginLeft="130dp"
+            android:layout_marginLeft="100dp"
             android:text="Catatan : "
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:textSize="14sp" />
 
         <EditText
-            android:background="@drawable/bg_note"
             android:id="@+id/tv_catatan"
-            android:padding="5dp"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/txt_catatan"
-            android:textSize="14sp"
             android:layout_below="@+id/imgMenuCart"
-            android:hint="cth : Porsinya banyakin ya" />
+
+            android:layout_toRightOf="@+id/txt_catatan"
+            android:background="@drawable/bg_note"
+            android:hint="cth : Porsinya banyakin ya"
+            android:imeOptions="actionDone"
+
+            android:inputType="text"
+            android:maxLines="2"
+            android:padding="5dp"
+            android:textSize="14sp"
+            tools:ignore="TouchTargetSizeCheck" />
 </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

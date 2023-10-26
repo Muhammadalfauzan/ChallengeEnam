@@ -24,14 +24,16 @@ interface CartDao {
     fun getAllItemCart() : LiveData<List<CartData>>
 
 
-  @Query("Select * FROM cart WHERE nameFood = :name")
-  fun getCartItemByName(name : String): CartData?
+    @Query("Select * FROM cart WHERE nameFood = :name")
+    fun getCartItemByName(name : String): CartData?
 
     fun addOrUpdateCartItem(cartData: CartData) {
         val existingItem = getCartItemByName(cartData.nameFood)
         if (existingItem != null) {
             val newQuantity = existingItem.quantity + cartData.quantity
+            val newTotalHarga = newQuantity * existingItem.hargaPerItem
             existingItem.quantity = newQuantity
+            existingItem.totalHarga = newTotalHarga
             update(existingItem)
         } else {
 

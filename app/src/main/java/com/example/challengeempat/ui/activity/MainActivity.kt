@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.example.challengeempat.LoginActivity
 import com.example.challengeempat.R
 import com.example.challengeempat.databinding.ActivityMainBinding
 

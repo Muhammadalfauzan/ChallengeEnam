@@ -1,10 +1,11 @@
-package com.example.challengeempat
+package com.example.challengeempat.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.challengeempat.sharedpref.SharedPreffUser
 import com.example.challengeempat.databinding.ActivityRegisterBinding
 import com.example.challengeempat.viewmodelregister.UserViewModel
 

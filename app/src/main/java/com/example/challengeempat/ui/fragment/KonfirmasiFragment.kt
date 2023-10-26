@@ -83,10 +83,8 @@ class KonfirmasiFragment : Fragment() {
         (activity as MainActivity).showButtomNav()
         val mainActivity = requireActivity() as MainActivity
 
-        // Tampilkan kembali App Bar
         mainActivity.supportActionBar?.show()
 
-        // Tampilkan kembali bottom navigation view jika perlu
         mainActivity.showButtomNav()
     }
 
@@ -114,7 +112,7 @@ class KonfirmasiFragment : Fragment() {
     }
 
 
-   private fun chooseDelivery() {
+    private fun chooseDelivery() {
         binding.btnTakeAway.setOnClickListener {
             selectDeliveryOption(true)
         }
@@ -157,27 +155,27 @@ class KonfirmasiFragment : Fragment() {
     }
 
 
-        private fun selectPaymentOption(isTunai: Boolean) {
-            if (isTunai) {
-                binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.lightGreen400))
-                binding.buttonTunai.setTextColor(resources.getColor(R.color.white))
+    private fun selectPaymentOption(isTunai: Boolean) {
+        if (isTunai) {
+            binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+            binding.buttonTunai.setTextColor(resources.getColor(R.color.white))
 
-                binding.buttonDigital.setBackgroundColor(resources.getColor(R.color.lightGreen400))
-                binding.buttonDigital.setTextColor(resources.getColor(R.color.black))
-
-
-                binding.buttonDigital.setBackgroundColor(resources.getColor(R.color.gray400))
-                binding.buttonDigital.setTextColor(resources.getColor(R.color.black))
-            } else {
-                binding.buttonDigital.setBackgroundColor(resources.getColor(R.color.lightGreen400))
-                binding.buttonDigital.setTextColor(resources.getColor(R.color.white))
-
-                binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.lightGreen400))
-                binding.buttonTunai.setTextColor(resources.getColor(R.color.black))
+            binding.buttonDigital.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+            binding.buttonDigital.setTextColor(resources.getColor(R.color.black))
 
 
-                binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.gray400))
-                binding.buttonTunai.setTextColor(resources.getColor(R.color.black))
-            }
+            binding.buttonDigital.setBackgroundColor(resources.getColor(R.color.gray400))
+            binding.buttonDigital.setTextColor(resources.getColor(R.color.black))
+        } else {
+            binding.buttonDigital.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+            binding.buttonDigital.setTextColor(resources.getColor(R.color.white))
+
+            binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.lightGreen400))
+            binding.buttonTunai.setTextColor(resources.getColor(R.color.black))
+
+
+            binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.gray400))
+            binding.buttonTunai.setTextColor(resources.getColor(R.color.black))
         }
+    }
 }

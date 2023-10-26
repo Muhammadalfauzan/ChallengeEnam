@@ -4,14 +4,12 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.challengeempat.CartRepository
 import com.example.challengeempat.database.CartData
 import com.example.challengeempat.modelapi.Data
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import com.example.challengeempat.repository.CartRepository
 
 class DetailViewModel(application: Application): ViewModel(){
-    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+
     private val _vCounter: MutableLiveData<Int> = MutableLiveData(1)
     val vCounter: LiveData<Int> = _vCounter
 
@@ -20,8 +18,7 @@ class DetailViewModel(application: Application): ViewModel(){
     private val _totalHarga: MutableLiveData<Int> = MutableLiveData(0)
     val totalHarga: LiveData<Int>  = _totalHarga
 
-    private val _orderNote = MutableLiveData<String?>()
-    private val orderNote: LiveData<String?> = _orderNote
+
 
     private val _selectItem = MutableLiveData<Data>()
 
@@ -43,22 +40,13 @@ class DetailViewModel(application: Application): ViewModel(){
                 val newCount = currentCount - 1
                 _vCounter.postValue(newCount)
 
-
             }
         }
     }
-
     fun setSelectItem(item: Data) {
         _selectItem.value = item
         _totalHarga.value = item.harga
     }
-
-    fun setOrderNote(note: String?) {
-        _orderNote.value = note
-    }
-/*    private fun getOrderNote(): String? {
-        return orderNote.value
-    }*/
 
     fun addToCart() {
         val selectItem = _selectItem.value
@@ -66,6 +54,8 @@ class DetailViewModel(application: Application): ViewModel(){
         selectItem?.let { selectedItem ->
             totalHarga.value?.let { totalHargaValue ->
                 vCounter.value?.let { vCounterValue ->
+                    val newTotalHarga = selectedItem.harga * vCounterValue
+                    _totalHarga.value = newTotalHarga
                     // Buat objek CartData baru berdasarkan detail item yang dipilih
                     val newItem = CartData(
                         image_url = selectedItem.imageUrl,
@@ -73,10 +63,9 @@ class DetailViewModel(application: Application): ViewModel(){
                         hargaPerItem = totalHargaValue,
                         quantity = vCounterValue,
                         note = null,
-                        totalHarga = selectedItem.harga
+                        totalHarga = newTotalHarga
                     )
 
-                    // Gunakan metode addOrUpdateCartItem untuk menambahkan item atau memperbarui item yang sudah ada
                     cartRepository.addCartToUpdate(newItem)
                 }
             }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+
     tools:context=".ui.fragment.CartFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +51,7 @@
             android:layout_height="0dp"
             android:layout_margin="4dp"
             android:padding="10dp"
+
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_cart"

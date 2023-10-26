@@ -3,13 +3,14 @@ package com.example.challengeempat.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.challengeempat.database.CartData
 import com.example.challengeempat.databinding.ItemCartBinding
 import com.example.challengeempat.viewmodel.CartViewModel
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "UNUSED_EXPRESSION")
 class CartAdapter(
     private val viewModel: CartViewModel
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
@@ -22,19 +23,21 @@ class CartAdapter(
         private val etNote = binding.tvCatatan
 
         init {
-            etNote.setOnFocusChangeListener { _, hasFocus ->
-                if (!hasFocus) {
-                    val adapterPosition = adapterPosition
-                    if (adapterPosition != RecyclerView.NO_POSITION && adapterPosition < cartItems.size) {
-                        val newNote = etNote.text.toString()
-                        viewModel.updateNote(cartItems[adapterPosition], newNote)
-                    }
+            etNote.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    etNote.clearFocus()
+                    val currentItem = cartItems[adapterPosition]
+                    currentItem.note = etNote.text.toString().trim()
+                    viewModel.updateNote(currentItem, etNote.text.toString().trim())
+                    true
                 }
+                false
             }
         }
 
 
         fun bind(cartItem: CartData) {
+
             Glide.with(binding.imgMenuCart)
                 .load(cartItem.image_url)
                 .into(binding.imgMenuCart)

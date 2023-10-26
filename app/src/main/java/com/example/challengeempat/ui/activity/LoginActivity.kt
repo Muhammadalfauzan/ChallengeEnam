@@ -1,4 +1,4 @@
-package com.example.challengeempat
+package com.example.challengeempat.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
@@ -11,8 +11,9 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.challengeempat.R
+import com.example.challengeempat.sharedpref.SharedPreffUser
 import com.example.challengeempat.modeluser.User
-import com.example.challengeempat.ui.activity.MainActivity
 import com.example.challengeempat.viewmodelregister.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth

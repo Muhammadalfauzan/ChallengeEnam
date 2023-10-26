@@ -16,5 +16,6 @@ data class CartData(
     var quantity: Int,
     var totalHarga : Int,
     var note: String ? =null,
+    /*var userId : String*/
 
     ) : Parcelable

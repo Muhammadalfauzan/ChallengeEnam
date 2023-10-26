@@ -27,8 +27,7 @@ class DetailFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var detailViewModel: DetailViewModel
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         binding = FragmentDetailBinding.inflate(inflater, container, false)
@@ -61,9 +60,11 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.backButton.setOnClickListener {
-            Navigation.findNavController(requireView()).navigate(R.id.action_detailFragment2_to_homeFragment)
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_detailFragment2_to_homeFragment)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
 
@@ -92,9 +93,7 @@ class DetailFragment : Fragment() {
             binding.tvDeskripsi.text = item?.detail
             binding.tvLokasi.text = item?.alamatResto
 
-            Glide.with(binding.root.context)
-                .load(it.imageUrl)
-                .into(binding.ivDetailMenu)
+            Glide.with(binding.root.context).load(it.imageUrl).into(binding.ivDetailMenu)
 
             detailViewModel.setSelectItem(it)
         }
@@ -131,9 +130,7 @@ class DetailFragment : Fragment() {
         binding.btnAddToCart.setOnClickListener {
             detailViewModel.addToCart()
             Toast.makeText(
-                requireContext(),
-                "Data telah berhasil ditambahkan ke cart",
-                Toast.LENGTH_SHORT
+                requireContext(), "Data telah berhasil ditambahkan ke cart", Toast.LENGTH_SHORT
             ).show()
         }
     }
