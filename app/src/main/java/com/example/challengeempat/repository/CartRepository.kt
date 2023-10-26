@@ -45,9 +45,9 @@ class CartRepository(application: Application) {
             cartDao.update(item)
         }
     }
- /*   fun insertData(cart: CartData) {
-        executorService.execute { cartDao.insert(cart) }
-    }*/
+    /*   fun insertData(cart: CartData) {
+           executorService.execute { cartDao.insert(cart) }
+       }*/
     fun deleteAllItems() {
         executorService.execute { cartDao.deleteALlItems() }
     }
@@ -56,7 +56,7 @@ class CartRepository(application: Application) {
             var totalPrice = 0
 
             for (cartItem in cartItems) {
-                // Mengalikan harga per item dengan quantity dan menambahkannya ke total harga
+
                 totalPrice += cartItem.hargaPerItem * cartItem.quantity
             }
 
