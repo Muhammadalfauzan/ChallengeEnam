@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.challengeempat.databinding.ItemGridBinding
 import com.example.challengeempat.databinding.ItemListBinding
-import com.example.challengeempat.modelapi.Data
+import com.example.challengeempat.model.Data
 
 
 class AdapterHome(

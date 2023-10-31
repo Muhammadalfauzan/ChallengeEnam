@@ -1,78 +1,54 @@
 package com.example.challengeempat.viewmodel
 
-import android.app.Application
-import android.util.Log
+
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.challengeempat.api.Api
+import com.example.challengeempat.api.ApiRestaurant
 import com.example.challengeempat.database.CartData
 import com.example.challengeempat.model.ApiOrderRequest
-import com.example.challengeempat.model.OrderResponse
 import com.example.challengeempat.repository.CartRepository
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CartViewModel(application: Application) : ViewModel() {
+@HiltViewModel
 
-    private val repository: CartRepository = CartRepository(application)
+class CartViewModel @Inject constructor(
+    private val apiRestaurant: ApiRestaurant,
+    private val repository: CartRepository
+) : ViewModel() {
 
-    var cartItems: LiveData<List<CartData>> = repository.getAllCartItems()
+    val cartItems: LiveData<List<CartData>> = repository.getAllCartItems()
+    val totalPrice: LiveData<Int> = repository.calculateTotalPrice()
+    val orderPlaced: LiveData<Boolean> = repository.orderPlacedLiveData
 
-    var totalPrice: LiveData<Int> = repository.calculateTotalPrice()
-
-
-    private val _orderPlacedLiveData = MutableLiveData<Boolean>()
-    val orderPlaced: LiveData<Boolean>
-        get() = _orderPlacedLiveData
-
-
-    fun updateQuantity(cartItem: CartData, newQuantity: Int) {
-        cartItem.quantity = newQuantity
-        cartItem.totalHarga = cartItem.hargaPerItem * newQuantity
-        repository.updateItemQuantity(cartItem, newQuantity)
-
+    // Fungsi untuk memperbarui jumlah item di keranjang
+    fun updateQuantity(item: CartData, newQuantity: Int) {
+        repository.updateItemQuantity(item, newQuantity)
     }
+
+    // Fungsi untuk menghapus item dari keranjang
     fun deleteCartItem(cartItem: CartData) {
         repository.deleteCartItem(cartItem)
-
     }
-    fun addCartToUpdate(cart: CartData) {
+
+    // Fungsi untuk menambahkan atau memperbarui item di keranjang
+    fun addOrUpdateCartItem(cart: CartData) {
         repository.addCartToUpdate(cart)
     }
 
+    // Fungsi untuk memperbarui catatan item di keranjang
+    fun updateNote(cartItem: CartData, newNote: String) {
+        repository.updateItemNote(cartItem, newNote)
+    }
+
+    // Fungsi untuk menghapus semua item dari keranjang
     fun deleteAllItems() {
         repository.deleteAllItems()
     }
-    fun updateNote(cartItem: CartData, newNote: String) {
-        cartItem.note = newNote
-        repository.updateItemNote(cartItem, newNote)
-    }
+
+    // Fungsi untuk menempatkan pesanan
     fun placeOrder(orderRequest: ApiOrderRequest) {
-        val apiService = Api.apiService
-
-        val call = apiService.order(orderRequest)
-
-        call.enqueue(object : Callback<OrderResponse> {
-            override fun onResponse(call: Call<OrderResponse>, response: Response<OrderResponse>) {
-                if (response.isSuccessful) {
-                    val orderResponse = response.body()
-                    if (orderResponse != null) {
-                        _orderPlacedLiveData.postValue(true)
-                        // Lakukan tindakan setelah pesanan berhasil
-                    }
-                } else {
-                    _orderPlacedLiveData.postValue(false)
-                    Log.e("KonfirmasiFragment", "Error: ${response.code()} - ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<OrderResponse>, t: Throwable) {
-                _orderPlacedLiveData.postValue(false)
-                Log.e("KonfirmasiFragment", "Error: ${t.message}")
-            }
-        })
+        repository.placeOrder(orderRequest)
     }
-
 }
+

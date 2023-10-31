@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.challengeempat.sharedpref.SharedPreffUser
 import com.example.challengeempat.databinding.ActivityRegisterBinding
+import com.example.challengeempat.sharedpref.SharedPreffUser
 import com.example.challengeempat.viewmodelregister.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var viewModel: UserViewModel

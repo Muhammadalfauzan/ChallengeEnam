@@ -2,16 +2,10 @@ package com.example.challengeempat.api
 
 
 
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+/*object Api {
 
-
-object Api {
-
-    /*private const val BASE_URL = "https://236c3839-2d73-48b4-9e05-1e7ee3873548.mock.pstmn.io/"*/
-    private const val BASE_URL = "https://testing.jasa-nikah-siri-amanah-profesional.com/"
+    *//*private const val BASE_URL = "https://236c3839-2d73-48b4-9e05-1e7ee3873548.mock.pstmn.io/"*//*
+    const val BASE_URL = "https://testing.jasa-nikah-siri-amanah-profesional.com/"
 
     val apiService: ApiRestaurant by lazy {
         createApiService()
@@ -31,4 +25,4 @@ object Api {
     }
 
 
-}
+}*/

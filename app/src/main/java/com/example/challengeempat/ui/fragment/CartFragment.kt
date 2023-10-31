@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.challengeempat.R
-import com.example.challengeempat.ViewModelFactory
 import com.example.challengeempat.adapter.CartAdapter
 import com.example.challengeempat.databinding.FragmentCartBinding
 import com.example.challengeempat.viewmodel.CartViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CartFragment : Fragment() {
 
     private lateinit var binding: FragmentCartBinding
@@ -26,7 +26,6 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
-        setUpCartViewModel()
 
         cartAdapter = CartAdapter(cartViewModel)
         binding.rvCart.setHasFixedSize(true)
@@ -53,10 +52,7 @@ class CartFragment : Fragment() {
         return binding.root
     }
 
-    private fun setUpCartViewModel() {
-        val viewModelFactory = ViewModelFactory(requireActivity().application)
-        cartViewModel = ViewModelProvider(this, viewModelFactory)[CartViewModel::class.java]
-    }
+
 
     private fun orderItem() {
 
@@ -70,23 +66,5 @@ class CartFragment : Fragment() {
 
     }
 
-    /* private fun showNoteDialog(newItem: CartData) {
-         val noteEditText = EditText(requireContext())
 
-         AlertDialog.Builder(requireContext())
-             .setTitle("Add Note")
-             .setView(noteEditText)
-             .setPositiveButton("OK") { _, _ ->
-                 val note = noteEditText.text.toString()
-                 if (note.isNotEmpty()) {
-                     newItem.note = note
-                     // Gunakan metode addCartToUpdate untuk menambahkan item atau memperbarui item yang sudah ada
-                     cartViewModel.addCartToUpdate(newItem)
-                 }
-             }
-             .setNegativeButton("Cancel") { dialog, _ ->
-                 dialog.dismiss()
-             }
-             .show()
-     }*/
 }

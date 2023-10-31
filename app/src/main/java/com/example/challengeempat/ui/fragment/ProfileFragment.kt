@@ -13,22 +13,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.challengeempat.R
-import com.example.challengeempat.ViewModelFactory
 import com.example.challengeempat.databinding.FragmentProfileBinding
 import com.example.challengeempat.sharedpref.SharedPreffUser
 import com.example.challengeempat.ui.activity.LoginActivity
 import com.example.challengeempat.viewmodel.CartViewModel
 import com.example.challengeempat.viewmodelregister.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var cartViewModel: CartViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var sharedPrefUser: SharedPreffUser
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,6 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        setUpCartViewModel()
         cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
@@ -101,8 +101,4 @@ class ProfileFragment : Fragment() {
         return view
     }
 
-    private fun setUpCartViewModel() {
-        val viewModelFactory = ViewModelFactory(requireActivity().application)
-        cartViewModel = ViewModelProvider(this, viewModelFactory)[CartViewModel::class.java]
-    }
 }

@@ -5,6 +5,8 @@ plugins {
     id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("com.google.dagger.hilt.android")
+
 }
 
 android {
@@ -90,5 +92,8 @@ dependencies {
     //Lottie
     implementation ("com.airbnb.android:lottie:5.0.3")
 
+    //dependecy injection dagger hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 
 }

@@ -1,36 +1,33 @@
 package com.example.challengeempat.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.challengeempat.database.CartData
-import com.example.challengeempat.modelapi.Data
+import com.example.challengeempat.model.Data
 import com.example.challengeempat.repository.CartRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel(application: Application): ViewModel(){
-
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val cartRepository: CartRepository
+) : ViewModel() {
     private val _vCounter: MutableLiveData<Int> = MutableLiveData(1)
     val vCounter: LiveData<Int> = _vCounter
 
-    private val cartRepository: CartRepository
     // LiveData untuk total harga
     private val _totalHarga: MutableLiveData<Int> = MutableLiveData(0)
-    val totalHarga: LiveData<Int>  = _totalHarga
-
-
+    val totalHarga: LiveData<Int> = _totalHarga
 
     private val _selectItem = MutableLiveData<Data>()
-
-    init {
-        cartRepository = CartRepository(application)
-    }
 
     fun incrementCount() {
         _vCounter.value?.let { currentCount ->
             val newCount = currentCount + 1
-            _vCounter.postValue(newCount)
-
+            _vCounter.value = newCount
         }
     }
 
@@ -38,11 +35,11 @@ class DetailViewModel(application: Application): ViewModel(){
         _vCounter.value?.let { currentCount ->
             if (currentCount > 1) {
                 val newCount = currentCount - 1
-                _vCounter.postValue(newCount)
-
+                _vCounter.value = newCount
             }
         }
     }
+
     fun setSelectItem(item: Data) {
         _selectItem.value = item
         _totalHarga.value = item.harga
@@ -66,11 +63,11 @@ class DetailViewModel(application: Application): ViewModel(){
                         totalHarga = newTotalHarga
                     )
 
-                    cartRepository.addCartToUpdate(newItem)
+                    viewModelScope.launch {
+                        cartRepository.addCartToUpdate(newItem)
+                    }
                 }
             }
         }
     }
-
 }
-

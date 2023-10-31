@@ -1,4 +1,4 @@
-package com.example.challengeempat.modelapi
+package com.example.challengeempat.model
 
 
 import com.google.gson.annotations.SerializedName

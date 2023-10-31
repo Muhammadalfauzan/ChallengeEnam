@@ -12,14 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.challengeempat.R
-import com.example.challengeempat.ViewModelFactory
 import com.example.challengeempat.databinding.FragmentDetailBinding
-import com.example.challengeempat.modelapi.Data
+import com.example.challengeempat.model.Data
 import com.example.challengeempat.ui.activity.MainActivity
 import com.example.challengeempat.viewmodel.DetailViewModel
 import com.example.challengeempat.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-@Suppress("DEPRECATION")
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     private var item: Data? = null
@@ -33,8 +33,6 @@ class DetailFragment : Fragment() {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
-        setUpDetailViewModel()
-
 
 
         detailViewModel.vCounter.observe(viewLifecycleOwner) { count ->
@@ -78,10 +76,6 @@ class DetailFragment : Fragment() {
         mainActivity.showButtomNav()
     }
 
-    private fun setUpDetailViewModel() {
-        val viewModelFactory = ViewModelFactory(requireActivity().application)
-        detailViewModel = ViewModelProvider(this, viewModelFactory)[DetailViewModel::class.java]
-    }
 
     private fun setDataToView() {
 

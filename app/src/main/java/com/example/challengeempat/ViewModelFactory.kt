@@ -1,11 +1,6 @@
 package com.example.challengeempat
 
-import android.app.Application
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.challengeempat.viewmodel.CartViewModel
-import com.example.challengeempat.viewmodel.DetailViewModel
-
+/*
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -19,4 +14,4 @@ class ViewModelFactory(private val application: Application) : ViewModelProvider
             else -> throw IllegalArgumentException("Unknown ViewModel Class: ${modelClass.name}")
         }
     }
-}
+}*/

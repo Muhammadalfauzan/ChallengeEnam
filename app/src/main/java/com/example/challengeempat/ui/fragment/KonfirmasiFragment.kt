@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.challengeempat.R
-import com.example.challengeempat.ViewModelFactory
 import com.example.challengeempat.adapter.CartAdapter
 import com.example.challengeempat.databinding.FragmentKonfirmasiBinding
 import com.example.challengeempat.managefragment.PaymenDialog
@@ -19,8 +17,9 @@ import com.example.challengeempat.model.ApiOrderRequest
 import com.example.challengeempat.model.OrderItem
 import com.example.challengeempat.ui.activity.MainActivity
 import com.example.challengeempat.viewmodel.CartViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 @Suppress("DEPRECATION")
 class KonfirmasiFragment : Fragment() {
 
@@ -33,7 +32,6 @@ class KonfirmasiFragment : Fragment() {
     ): View {
         binding = FragmentKonfirmasiBinding.inflate(inflater, container, false)
 
-        setUpCartViewModel()
 
         cartAdapter = CartAdapter(cartViewModel)
         binding.recyclerView.setHasFixedSize(true)
@@ -88,10 +86,6 @@ class KonfirmasiFragment : Fragment() {
         mainActivity.showButtomNav()
     }
 
-    private fun setUpCartViewModel() {
-        val viewModelFactory = ViewModelFactory(requireActivity().application)
-        cartViewModel = ViewModelProvider(this, viewModelFactory)[CartViewModel::class.java]
-    }
 
     private fun pesan() {
         binding.buttonPesanKonfirmasi.setOnClickListener {

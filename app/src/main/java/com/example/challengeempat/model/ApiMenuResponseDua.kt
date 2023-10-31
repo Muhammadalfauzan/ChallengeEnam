@@ -3,13 +3,11 @@ package com.example.challengeempat.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ApiKategori(
-    @SerializedName("code")
-    val codeKat: Int,
+data class ApiMenuResponseDua(
     @SerializedName("data")
-    val dataKat: List<DataKategori>,
+    val datamenu: List<Data>,
     @SerializedName("message")
-    val messageKat: String?,
+    val message: String,
     @SerializedName("status")
-    val statusKat: Boolean?
+    val status: Boolean
 )
