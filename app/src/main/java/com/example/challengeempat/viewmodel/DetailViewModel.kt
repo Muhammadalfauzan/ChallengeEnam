@@ -18,7 +18,6 @@ class DetailViewModel @Inject constructor(
     private val _vCounter: MutableLiveData<Int> = MutableLiveData(1)
     val vCounter: LiveData<Int> = _vCounter
 
-    // LiveData untuk total harga
     private val _totalHarga: MutableLiveData<Int> = MutableLiveData(0)
     val totalHarga: LiveData<Int> = _totalHarga
 

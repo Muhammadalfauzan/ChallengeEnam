@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.challengeempat.databinding.FragmentEditProfileBinding
@@ -22,7 +22,7 @@ import kotlinx.coroutines.withContext
 @AndroidEntryPoint
 class EditProfileFragment : Fragment() {
     private lateinit var binding: FragmentEditProfileBinding
-    private lateinit var userViewModel: UserViewModel
+    private val userViewModel: UserViewModel by viewModels()
     private lateinit var currentUser: FirebaseUser
 
     override fun onCreateView(
@@ -32,7 +32,6 @@ class EditProfileFragment : Fragment() {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         currentUser = FirebaseAuth.getInstance().currentUser ?: return view
 
         // Mendapatkan data pengguna dari Firestore dan mengisi  edit profil

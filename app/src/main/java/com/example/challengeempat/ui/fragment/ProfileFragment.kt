@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.challengeempat.ui.fragment
 
 import android.app.AlertDialog
@@ -9,39 +11,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.challengeempat.R
 import com.example.challengeempat.databinding.FragmentProfileBinding
-import com.example.challengeempat.sharedpref.SharedPreffUser
 import com.example.challengeempat.ui.activity.LoginActivity
-import com.example.challengeempat.viewmodel.CartViewModel
 import com.example.challengeempat.viewmodelregister.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+@Suppress("NAME_SHADOWING")
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var cartViewModel: CartViewModel
-    private lateinit var userViewModel: UserViewModel
-    private lateinit var sharedPrefUser: SharedPreffUser
-
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
-        sharedPrefUser = SharedPreffUser(requireContext())
 
         // Mengambil data pengguna dari ViewModel (sudah login) dan menampilkannya di profil
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -72,7 +66,7 @@ class ProfileFragment : Fragment() {
                 progressDialog.show()
 
                 FirebaseAuth.getInstance().signOut()
-                sharedPrefUser.setLoggedIn(false)
+                userViewModel.setLoggedIn(false) // Perbaikan di sini, menggunakan sharedPreffUser dari UserViewModel
 
                 progressDialog.dismiss()
 
@@ -92,13 +86,10 @@ class ProfileFragment : Fragment() {
             builder.show()
         }
 
-
         binding.editProfile.setOnClickListener {
-
             findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
 
         return view
     }
-
 }

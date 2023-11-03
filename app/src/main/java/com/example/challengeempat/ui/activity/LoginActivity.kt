@@ -8,11 +8,10 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.challengeempat.R
-import com.example.challengeempat.sharedpref.SharedPreffUser
 import com.example.challengeempat.modeluser.User
 import com.example.challengeempat.viewmodelregister.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
@@ -29,18 +28,14 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnRegister: TextView
     private lateinit var progress: ProgressDialog
     private var firebaseAuth = FirebaseAuth.getInstance()
-    private lateinit var sharedPrefUser: SharedPreffUser
     private lateinit var currentUser: FirebaseUser
 
-    private lateinit var loginViewModel: UserViewModel
+    private val loginViewModel: UserViewModel by viewModels()
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        loginViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        loginViewModel.setUserPreferences(SharedPreffUser(this)) // Menginisialisasi SharedPreffUser
 
         editEmail = findViewById(R.id.et_email)
         editPassword = findViewById(R.id.et_password)
@@ -51,9 +46,7 @@ class LoginActivity : AppCompatActivity() {
         progress.setTitle("Logging")
         progress.setMessage("Silahkan tunggu")
 
-        sharedPrefUser = SharedPreffUser(this)
-
-        if (sharedPrefUser.isLoggedIn()) {
+        if (loginViewModel.isLoggedIn()) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -70,7 +63,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             btnRegister.setOnClickListener {
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(Intent(this, RegisterActivity::class.java))
+                finish()
             }
         }
     }

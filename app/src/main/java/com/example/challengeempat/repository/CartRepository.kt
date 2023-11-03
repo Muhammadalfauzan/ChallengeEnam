@@ -16,13 +16,10 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
-class CartRepository @Inject constructor(private val cartDao: CartDao, var apiService: ApiRestaurant) {
+class CartRepository @Inject constructor(private val cartDao: CartDao, private var apiService: ApiRestaurant) {
 
     private val executorService: ExecutorService = Executors.newSingleThreadScheduledExecutor()
-
-
     private val _orderPlacedLiveData = MutableLiveData<Boolean>()
-
     val orderPlacedLiveData: LiveData<Boolean>
         get() = _orderPlacedLiveData
 
@@ -32,7 +29,8 @@ class CartRepository @Inject constructor(private val cartDao: CartDao, var apiSe
 
 
     fun updateItemQuantity(item: CartData, newQuantity: Int) {
-        item.quantity = newQuantity
+        item.quantity =newQuantity
+        item.totalHarga = item.hargaPerItem * newQuantity
         executorService.execute {
             cartDao.update(item)
         }

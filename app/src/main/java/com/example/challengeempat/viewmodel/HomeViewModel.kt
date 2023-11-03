@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.challengeempat.model.Data
 import com.example.challengeempat.model.DataCategory
 import com.example.challengeempat.repository.MenuRepository
+import com.example.challengeempat.sharedpref.ViewPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,20 +16,27 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val menuRepository: MenuRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val menuRepository: MenuRepository,
+                                        private val viewPreference: ViewPreference) : ViewModel() {
+
     val listView = MutableLiveData<Boolean>().apply { value = true }
     val menu = MutableLiveData<List<Data>>()
 
     private val _categories = MutableLiveData<List<DataCategory>>()
     val categories: LiveData<List<DataCategory>> = _categories
+
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
+
+    fun saveLayoutPreference(isView: Boolean) {
+        viewPreference.saveLayoutPref(isView) }
+    fun getLayoutPreference(): Boolean {
+        return viewPreference.getLayoutPref() }
 
     init {
         fetchMenu()
         fetchCategories()
     }
-
     private fun fetchMenu() {
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
@@ -59,7 +67,6 @@ class HomeViewModel @Inject constructor(private val menuRepository: MenuReposito
     }
 
     private fun fetchCategories() {
-        _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = menuRepository.getAllcategory()

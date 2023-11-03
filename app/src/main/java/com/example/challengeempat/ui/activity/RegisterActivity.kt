@@ -3,33 +3,26 @@ package com.example.challengeempat.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.challengeempat.databinding.ActivityRegisterBinding
-import com.example.challengeempat.sharedpref.SharedPreffUser
 import com.example.challengeempat.viewmodelregister.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var viewModel: UserViewModel
+    private val viewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Inisialisasi ViewModel menggunakan ViewModelProvider
-        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
-        // Inisialisasi sharedPrefUser
-        val sharedPrefUser = SharedPreffUser(this)
-        viewModel.setUserPreferences(sharedPrefUser)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         viewModel.registrationMessage.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
+
         binding.btnRegistrasi.setOnClickListener {
             if (validateInput()) {
                 val usernameText = binding.etUsernameRegis.text.toString()
@@ -38,17 +31,13 @@ class RegisterActivity : AppCompatActivity() {
                 val password = binding.etPasswordRegis.text.toString()
 
                 viewModel.register(usernameText, noTeleponText, emailText, password)
-
-                // Registrasi berhasil, munculkan pesan Toast
-                viewModel.registrationMessage.observe(this) { message ->
-                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-                }
             }
         }
 
         binding.tvLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish() // Menghapus halaman saat ini dari tumpukan aktivitas
         }
     }
 
@@ -89,4 +78,8 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }

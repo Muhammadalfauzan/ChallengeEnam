@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             // Pengguna belum login, arahkan ke halaman login
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finish() // Tutup `MainActivity` agar pengguna tidak dapat kembali
+            finish()
         } else {
             // Pengguna sudah login, inisialisasi tampilan `MainActivity`
             val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

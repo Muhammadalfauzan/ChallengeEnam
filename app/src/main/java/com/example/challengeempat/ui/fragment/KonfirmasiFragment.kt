@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.challengeempat.R
@@ -24,14 +25,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class KonfirmasiFragment : Fragment() {
 
     private lateinit var binding: FragmentKonfirmasiBinding
-    private lateinit var cartViewModel: CartViewModel
     private lateinit var cartAdapter: CartAdapter
 
+    private val cartViewModel: CartViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentKonfirmasiBinding.inflate(inflater, container, false)
-
 
         cartAdapter = CartAdapter(cartViewModel)
         binding.recyclerView.setHasFixedSize(true)
@@ -45,7 +45,6 @@ class KonfirmasiFragment : Fragment() {
         cartViewModel.totalPrice.observe(viewLifecycleOwner) {
             binding.tvTotalHargaPesanan.text = it.toString()
         }
-
         cartViewModel.orderPlaced.observe(viewLifecycleOwner) {
             if (it) {
                 Log.e("HomeFragment", "Data order : $it")
@@ -60,7 +59,6 @@ class KonfirmasiFragment : Fragment() {
         (activity as MainActivity).hideButtomNav()
         mainActivity.supportActionBar?.hide()
 
-
         pesan()
         chooseDelivery()
         choosePayment()
@@ -74,7 +72,6 @@ class KonfirmasiFragment : Fragment() {
                 .navigate(R.id.action_konfirmasiFragment_to_cartFragment2)
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
 
@@ -85,7 +82,6 @@ class KonfirmasiFragment : Fragment() {
 
         mainActivity.showButtomNav()
     }
-
 
     private fun pesan() {
         binding.buttonPesanKonfirmasi.setOnClickListener {
@@ -98,13 +94,11 @@ class KonfirmasiFragment : Fragment() {
                 })
 
                 cartViewModel.placeOrder(orderRequest)
-
             } else {
                 Toast.makeText(requireContext(), "Keranjang anda kosong", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
 
     private fun chooseDelivery() {
         binding.btnTakeAway.setOnClickListener {
@@ -115,7 +109,6 @@ class KonfirmasiFragment : Fragment() {
             selectDeliveryOption(false)
         }
     }
-
     private fun selectDeliveryOption(isTakeAway: Boolean) {
         if (isTakeAway) {
             binding.btnTakeAway.setBackgroundColor(resources.getColor(R.color.lightGreen400))
@@ -137,7 +130,6 @@ class KonfirmasiFragment : Fragment() {
             binding.btnTakeAway.setTextColor(resources.getColor(R.color.black))
         }
     }
-
     private fun choosePayment() {
         binding.buttonTunai.setOnClickListener {
             selectPaymentOption(true)
@@ -147,8 +139,6 @@ class KonfirmasiFragment : Fragment() {
             selectPaymentOption(false)
         }
     }
-
-
     private fun selectPaymentOption(isTunai: Boolean) {
         if (isTunai) {
             binding.buttonTunai.setBackgroundColor(resources.getColor(R.color.lightGreen400))
