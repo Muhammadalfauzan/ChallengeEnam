@@ -2,4 +2,39 @@
     <string name="app_name">ChallengeEmpat</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password">Password</string>
+    <string name="conf_password">Konfirmasi Password</string>
+    <string name="register">Register</string>
+    <string name="no_Telepon">No Telepon</string>
+    <string name="already_have_account">Already have an account? Login</string>
+    <string name="Order_Eats">Order Eats</string>
+    <string name="categoty">kategori</string>
+    <string name="seafood">Seafood</string>
+    <string name="arrow_forward">arrow forward</string>
+    <string name="gambar_makanan">gambar makanan</string>
+    <string name="ayam_Bakar">Ayam Bakar</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">edit profile</string>
+    <string name="Username">Username</string>
+    <string name="text_password">********</string>
+    <string name="text_pass">textPassword</string>
+    <string name="Email">Email</string>
+    <string name="Log_Out">Log Out</string>
+    <string name="yeeeayy">yeeeayy</string>
+    <string name="back_toHome">Kembali ke Home</string>
+    <string name="Pesanan_Berhasil">Pesanan Berhasil</string>
+    <string name="gambar_payment">gambar payment berhasil</string>
+    <string name="Delivery">Delivery</string>
+    <string name="back">back</string>
+    <string name="Dompet_Digital">Dompet Digital</string>
+    <string name="Take_Away">Take Away</string>
+    <string name="Order_Now">Order Now</string>
+    <string name="Tunai">Tunai</string>
+    <string name="pembayaran">Metode Pembayaran</string>
+    <string name="Order">Order</string>
+    <string name="Total_Pembayaran">Total Pembayaran</string>
+    <string name="ruppiah">Rp.</string>
+    <string name="pembayaran">Ringkasan Pembayaran</string>
+    <string name="pengiriman">Metode Pengiriman</string>
+
 </resources>

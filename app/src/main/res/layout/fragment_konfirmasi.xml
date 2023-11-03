@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
-                    android:contentDescription="back"
+                    android:contentDescription="@string/back"
                     android:src="@drawable/ic_back_ios_24"
                     tools:ignore="TouchTargetSizeCheck" />
 
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Order"
+                    android:text="@string/Order"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:text="Metode Pengiriman"
+            android:text="@string/pengiriman"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +85,7 @@
                 app:cornerRadius="5dp"
                 android:backgroundTint="@color/gray400"
                 android:paddingTop="10dp"
-                android:text="Take Away" />
+                android:text="@string/Take_Away" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_delivery"
@@ -94,7 +94,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/gray400"
                 android:paddingTop="10dp"
-                android:text="Delivery"
+                android:text="@string/Delivery"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="Metode Pembayaran"
+            android:text="@string/pembayaran"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
@@ -146,7 +146,7 @@
                 android:backgroundTint="@color/gray400"
                 android:textColor="@color/black"
                 app:cornerRadius="5dp"
-                android:text="Tunai" />
+                android:text="@string/Tunai" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_digital"
@@ -155,7 +155,7 @@
                 android:layout_weight="1"
                 app:cornerRadius="5dp"
                 android:backgroundTint="@color/gray400"
-                android:text="Dompet Digital"
+                android:text="@string/Dompet_Digital"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -165,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="5dp"
-            android:text="Ringkasan Pembayaran"
+            android:text="@string/pembayaran"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cardView3"
             app:layout_constraintStart_toStartOf="parent" />
@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:text="Total Pembayaran" />
+                    android:text="@string/Total_Pembayaran" />
 
                 <TextView
                     android:layout_marginStart="80dp"
@@ -201,7 +201,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:text="Rp." />
+                    android:text="@string/ruppiah"
+                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:id="@+id/tv_totalHargaPesanan"
@@ -212,8 +213,7 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_marginTop="1dp"
-
-                    android:text="50.000" />
+                    />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -224,7 +224,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_marginBottom="109dp"
-            android:text="Order Now"
+            android:text="@string/Order_Now"
             android:background="@drawable/rounded_bg2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
