@@ -19,7 +19,7 @@ class DetailViewModel @Inject constructor(
     val vCounter: LiveData<Int> = _vCounter
 
     private val _totalHarga: MutableLiveData<Int> = MutableLiveData(0)
-    val totalHarga: LiveData<Int> = _totalHarga
+    private val totalHarga: LiveData<Int> = _totalHarga
 
     private val _selectItem = MutableLiveData<Data>()
 
@@ -54,7 +54,7 @@ class DetailViewModel @Inject constructor(
                     _totalHarga.value = newTotalHarga
                     // Buat objek CartData baru berdasarkan detail item yang dipilih
                     val newItem = CartData(
-                        image_url = selectedItem.imageUrl,
+                        imageurl = selectedItem.imageUrl,
                         nameFood = selectedItem.nama,
                         hargaPerItem = totalHargaValue,
                         quantity = vCounterValue,

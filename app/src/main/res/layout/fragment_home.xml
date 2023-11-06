@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:padding="5dp"
-            android:text="Hello,"
+            android:text="@string/hello"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,13 +29,14 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="@string/nama"
             android:textColor="@color/amber900"
-            android:text="Fauzan"
-           android:paddingTop="5dp"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck" />
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_marginStart="5dp"
@@ -51,14 +52,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
-            android:drawableStart="@drawable/spoon" />
+            app:drawableStartCompat="@drawable/spoon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
-            android:text="Lagi mau mamam apa?" />
+            android:text="@string/lagi_mau_mam_apa" />
 
 
         <ImageView
@@ -66,6 +67,7 @@
             android:layout_width="36dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
+            android:contentDescription="@string/search"
             android:src="@drawable/search_24" />
 
     </LinearLayout>
@@ -78,13 +80,11 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="1dp"
-
         android:background="@color/white"
-        android:contentDescription="Tombol untuk belanja"
+        android:contentDescription="@string/button_cart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.824"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/shopping_cart" />
 
@@ -97,7 +97,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="2dp"
         android:background="@color/white"
-        android:contentDescription="tombol untuk profile"
+        android:contentDescription="@string/button_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.971"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/gambar_makanan"
                 android:src="@drawable/ayam" />
 
 
@@ -143,11 +144,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="14dp"
-            android:layout_marginLeft="14dp"
             android:layout_marginTop="25dp"
             android:layout_toEndOf="@+id/card_nav1"
-            android:layout_toRightOf="@+id/card_nav1"
-            android:text="Diskon 30%"
+            android:text="@string/diskon"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -157,12 +156,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textDiskon"
             android:layout_marginStart="14dp"
-            android:layout_marginLeft="14dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/card_nav1"
-            android:layout_toRightOf="@+id/card_nav1"
             android:paddingTop="10dp"
-            android:text="Pesan makanan lewat aplikasi dan dapatkan diskonmu "
+            android:text="@string/pesan_makanan_lewat_aplikasi"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -182,8 +179,8 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:text="List Menu Makanan"
+            android:layout_marginStart="5dp"
+            android:text="@string/list_makanan"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -194,14 +191,15 @@
             android:id="@+id/btn_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/textView5"
+            android:layout_toEndOf="@+id/textView5"
             android:background="@color/white"
-            android:contentDescription="button grid dan list"
+            android:contentDescription="@string/button_toogle"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:src="@drawable/list"
             app:layout_constraintBottom_toTopOf="@+id/rvListMenu"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="RedundantDescriptionCheck" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -209,28 +207,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentTop="true"
-
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-        <TextView
-        android:id="@+id/txt_empty"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Data Menu Kosong"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintVertical_bias="0.32" />
 
         <ProgressBar
 

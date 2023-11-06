@@ -10,12 +10,12 @@ import kotlinx.parcelize.Parcelize
 data class CartData(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val image_url: String,
+    val imageurl: String,
     val nameFood: String,
     val hargaPerItem: Int,
     var quantity: Int,
     var totalHarga : Int,
     var note: String ? =null,
-    /*var userId : String*/
+
 
     ) : Parcelable

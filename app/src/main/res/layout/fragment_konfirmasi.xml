@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context=".ui.fragment.KonfirmasiFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -67,8 +68,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
-            android:padding="5dp"
             android:orientation="horizontal"
+            android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_1">
@@ -79,13 +80,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textAlignment="center"
-                app:cornerRadius="5dp"
                 android:backgroundTint="@color/gray400"
                 android:paddingTop="10dp"
-                android:text="@string/Take_Away" />
+                android:text="@string/Take_Away"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:cornerRadius="5dp"
+                tools:ignore="VisualLintButtonSize" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_delivery"
@@ -98,7 +100,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:cornerRadius="5dp" />
+                app:cornerRadius="5dp"
+                tools:ignore="VisualLintButtonSize" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -131,8 +134,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
-            android:padding="5dp"
             android:orientation="horizontal"
+            android:padding="5dp"
             app:layout_constraintBottom_toTopOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -144,19 +147,21 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/gray400"
+                android:text="@string/Tunai"
                 android:textColor="@color/black"
                 app:cornerRadius="5dp"
-                android:text="@string/Tunai" />
+                tools:ignore="VisualLintButtonSize" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_digital"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:cornerRadius="5dp"
                 android:backgroundTint="@color/gray400"
                 android:text="@string/Dompet_Digital"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                app:cornerRadius="5dp"
+                tools:ignore="VisualLintButtonSize" />
         </LinearLayout>
 
         <TextView
@@ -165,7 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="5dp"
-            android:text="@string/pembayaran"
+            android:text="@string/ringkasan_pembayaran"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cardView3"
             app:layout_constraintStart_toStartOf="parent" />
@@ -190,18 +195,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:text="@string/Total_Pembayaran" />
+                    android:text="@string/Total_Pembayaran"
+                    android:textColor="@color/black" />
 
                 <TextView
-                    android:layout_marginStart="80dp"
                     android:id="@+id/txt_ringkasan1"
                     android:layout_width="wrap_content"
-                   android:paddingStart="20dp"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
+                    android:layout_marginStart="80dp"
+                    android:paddingStart="20dp"
                     android:text="@string/ruppiah"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
@@ -209,11 +214,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
+                    android:layout_marginTop="1dp"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:layout_marginTop="1dp"
-                    />
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -224,11 +228,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_marginBottom="109dp"
-            android:text="@string/Order_Now"
             android:background="@drawable/rounded_bg2"
+            android:text="@string/Order_Now"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

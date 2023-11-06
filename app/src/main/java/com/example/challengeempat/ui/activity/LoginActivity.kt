@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.challengeempat.ui.activity
 
 import android.annotation.SuppressLint
@@ -10,12 +12,11 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.example.challengeempat.R
 import com.example.challengeempat.modeluser.User
+import com.example.challengeempat.util.Result
 import com.example.challengeempat.viewmodelregister.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +28,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnLogin: Button
     private lateinit var btnRegister: TextView
     private lateinit var progress: ProgressDialog
-    private var firebaseAuth = FirebaseAuth.getInstance()
     private lateinit var currentUser: FirebaseUser
 
     private val loginViewModel: UserViewModel by viewModels()
@@ -46,8 +46,13 @@ class LoginActivity : AppCompatActivity() {
         progress.setTitle("Logging")
         progress.setMessage("Silahkan tunggu")
 
+        btnRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+            finish()
+        }
+
         if (loginViewModel.isLoggedIn()) {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
         } else {
@@ -62,11 +67,7 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-            btnRegister.setOnClickListener {
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(Intent(this, RegisterActivity::class.java))
-                finish()
-            }
+
         }
     }
 
@@ -75,10 +76,10 @@ class LoginActivity : AppCompatActivity() {
         val password = editPassword.text.toString()
 
         progress.show()
-        loginViewModel.login(email, password).observe(this, Observer { result ->
-            when {
-                result.isSuccess -> {
-                    val user = result.getOrNull()
+        loginViewModel.login(email, password).observe(this) { result ->
+            when (result) {
+                is Result.Success -> {
+                    val user = result.data
                     if (user != null) {
                         currentUser = user
 
@@ -91,36 +92,40 @@ class LoginActivity : AppCompatActivity() {
                                     val userData = documentSnapshot.toObject(User::class.java)
                                     if (userData != null) {
                                         // Di sini Anda dapat menggunakan data pengguna dari Firestore
-                                        val username = userData.username
+                                        userData.username
                                         userData.noTelepon
 
                                         // Selanjutnya, Anda dapat menggunakannya sesuai kebutuhan.
                                     }
                                 }
-
-                                // Navigasi ke layar beranda atau lainnya setelah login berhasil
-                                val intent = Intent(this, MainActivity::class.java)
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
-                                progress.dismiss()
                                 finish()
                             }
                             .addOnFailureListener { _ ->
-                                Toast.makeText(this, "Gagal mengambil data pengguna dari Firestore", LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    this,
+                                    "Gagal mengambil data pengguna dari Firestore",
+                                    LENGTH_SHORT
+                                ).show()
                                 progress.dismiss()
                             }
                     } else {
-                        Toast.makeText(this, "Akun Tidak terdaftar silahkan registrasi dulu", LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Akun Tidak terdaftar silahkan registrasi dulu",
+                            LENGTH_SHORT
+                        ).show()
                         progress.dismiss()
                     }
                 }
-                result.isFailure -> {
-                    val error = result.exceptionOrNull()?.message
+
+                is Result.Error -> {
+                    val error = result.exception.message
                     Toast.makeText(this, "Login gagal: $error", LENGTH_SHORT).show()
                     progress.dismiss()
                 }
-                else -> {
-                }
             }
-        })
+        }
     }
 }

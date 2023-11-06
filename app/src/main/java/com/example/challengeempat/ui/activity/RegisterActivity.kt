@@ -6,14 +6,16 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.challengeempat.databinding.ActivityRegisterBinding
+import com.example.challengeempat.util.Result
 import com.example.challengeempat.viewmodelregister.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private val viewModel: UserViewModel by viewModels()
-
+    private var registrationSuccessful = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -31,13 +33,32 @@ class RegisterActivity : AppCompatActivity() {
                 val password = binding.etPasswordRegis.text.toString()
 
                 viewModel.register(usernameText, noTeleponText, emailText, password)
+
             }
         }
 
         binding.tvLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish() // Menghapus halaman saat ini dari tumpukan aktivitas
+            // Tambahkan logika untuk kembali ke LoginActivity jika registrasi berhasil
+            if (registrationSuccessful) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                Toast.makeText(this, "Lakukan registrasi terlebih dahulu.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        viewModel.registerResult.observe(this) { result ->
+            when (result) {
+                is Result.Success -> {
+                    Toast.makeText(this, "Registrasi berhasil", Toast.LENGTH_SHORT).show()
+                    // Setel status registrasi menjadi true
+                    registrationSuccessful = true
+
+                }
+                is Result.Error -> {
+                    Toast.makeText(this, "Registrasi gagal: ${result.exception.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -78,8 +99,4 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }

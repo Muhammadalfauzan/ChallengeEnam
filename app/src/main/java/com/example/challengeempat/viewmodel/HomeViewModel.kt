@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(private val menuRepository: MenuReposito
     val categories: LiveData<List<DataCategory>> = _categories
 
     private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> = _loading
+
 
     fun saveLayoutPreference(isView: Boolean) {
         viewPreference.saveLayoutPref(isView) }

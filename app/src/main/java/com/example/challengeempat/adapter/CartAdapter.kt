@@ -39,7 +39,7 @@ class CartAdapter(
         fun bind(cartItem: CartData) {
 
             Glide.with(binding.imgMenuCart)
-                .load(cartItem.image_url)
+                .load(cartItem.imageurl)
                 .into(binding.imgMenuCart)
 
             binding.tvNamaImgCart.text = cartItem.nameFood

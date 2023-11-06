@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class MenuRepository
     @Inject
-    constructor(var apiService: ApiRestaurant,){
+    constructor(private var apiService: ApiRestaurant){
 
         suspend fun getAllMenu() = apiService.getAllMenu()
 

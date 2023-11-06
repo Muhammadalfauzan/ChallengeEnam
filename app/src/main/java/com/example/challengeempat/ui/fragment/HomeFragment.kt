@@ -33,7 +33,12 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        userViewModel.userLiveData.observe(viewLifecycleOwner){user ->
+            user?.let {
+                binding.tvName.text = user.username
+            }
+        }
+        userViewModel.fetchUserData()
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         homeViewModel.listView.value = homeViewModel.getLayoutPreference()

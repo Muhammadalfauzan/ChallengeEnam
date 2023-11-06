@@ -25,8 +25,8 @@
         android:id="@+id/buttom_nav"
         app:menu="@menu/menu_navigation"
         app:labelVisibilityMode="unlabeled"
-
-        app:itemIconTint="@drawable/buttom_nav">
+        app:itemIconTint="@drawable/buttom_nav"
+        tools:ignore="VisualLintBottomNav">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

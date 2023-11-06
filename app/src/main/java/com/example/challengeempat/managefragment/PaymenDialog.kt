@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.challengeempat.R
 import com.example.challengeempat.databinding.FragmentPaymentSuccesDialogBinding
 import com.example.challengeempat.ui.activity.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PaymenDialog : DialogFragment() {
 
     private lateinit var binding: FragmentPaymentSuccesDialogBinding

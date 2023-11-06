@@ -34,7 +34,56 @@
     <string name="Order">Order</string>
     <string name="Total_Pembayaran">Total Pembayaran</string>
     <string name="ruppiah">Rp.</string>
-    <string name="pembayaran">Ringkasan Pembayaran</string>
+    <string name="ringkasan_pembayaran">Ringkasan Pembayaran</string>
     <string name="pengiriman">Metode Pengiriman</string>
+
+
+    <string name="cart">Cart</string>
+    <string name="pesan">Pesan</string>
+    <string name="harga">20000</string>
+    <string name="total_harga">Total Harga</string>
+
+
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="Detail_Gambar">Detail Gambar</string>
+    <string name="dimsum">Dim Sum</string>
+    <string name="description">varian dari pangsit tradisional china yang disajikan dengan cara di kukus dan di goreng</string>
+    <string name="lokasi">Lokasi</string>
+    <string name="alamat">jln sukun no 6 Sleman, Daerah Istimewa Yogyakarta</string>
+
+
+    <string name="decrement">decrement</string>
+    <string name="increment">increment</string>
+    <string name="quantity">1</string>
+
+
+    <string name="No_telepon_baru">No telepon baru</string>
+    <string name="new_password">Password Baru</string>
+    <string name="old_password">Password Lama</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Save">Save</string>
+
+
+    <string name="search">search</string>
+    <string name="lagi_mau_mam_apa">Lagi mau mamam apa</string>
+    <string name="pesan_makanan_lewat_aplikasi">Pesan makanan lewat aplikasi dan dapatkan diskonmu </string>
+    <string name="diskon">Diskon 30% </string>
+    <string name="button_toogle">button grid dan list</string>
+    <string name="button_cart">Tombol untuk belanja</string>
+    <string name="button_profile">tombol untuk profile</string>
+    <string name="hello">Hello,</string>
+    <string name="list_makanan">List Menu Makanan</string>
+    <string name="nama">Fauzan</string>
+    <string name="foto">Foto Profile</string>
+
+
+    <string name="Catatan">Catatan : </string>
+    <string name="sate_ayam">Sate Ayam </string>
+    <string name="note">cth : Porsinya banyakin ya</string>
+    <string name="nama_makanan">AYAM BAKAR</string>
+
+
+
+    <string name="registrasi_succes">Registrasi Berhasil</string>
 
 </resources>

@@ -16,5 +16,7 @@ class SharedPreffUser(context: Context) {
         editor.putBoolean(isLoggedInKey, value)
         editor.apply()
     }
+
+
 }
 
